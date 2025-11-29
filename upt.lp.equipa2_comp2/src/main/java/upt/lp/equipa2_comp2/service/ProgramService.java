@@ -2,8 +2,10 @@
  * 
  */
 package upt.lp.equipa2_comp2.service;
+import upt.lp.equipa2_comp2.dto.ProgramDTO;
 import upt.lp.equipa2_comp2.entity.Partner;
 import upt.lp.equipa2_comp2.entity.Type;
+import upt.lp.equipa2_comp2.mapper.ProgramMapper;
 import upt.lp.equipa2_comp2.entity.Program;
 import upt.lp.equipa2_comp2.repository.PartnerRepository;
 import upt.lp.equipa2_comp2.repository.ProgramRepository;
@@ -25,7 +27,6 @@ public class ProgramService {
 	
 	private final TypeRepository typeRepository;
 	
-
 	/**
 	 * @param programRepository
 	 * @param partnerRepository
@@ -47,25 +48,27 @@ public class ProgramService {
 		return programRepository.findById(id).orElseThrow(() -> new RuntimeException("Program not found"));
 	}
 	
-	public Program createProgram(Program prog) {
+	public Program createProgram(ProgramDTO progDTO) {
 		
 		//partner - se não existir cria
-		Partner partner = partnerRepository.findByPartner(prog.getPartner().getPartner()).orElseGet(() -> {
+		Partner partner = partnerRepository.findByPartner(progDTO.getPartner()).orElseGet(() -> {
 			Partner newPartner = new Partner();
-			newPartner.setPartner(prog.getPartner().getPartner());
+			newPartner.setPartner(progDTO.getPartner());
 			return partnerRepository.save(newPartner);
 		});
-		
-		//associa o programa ao partner
-		prog.setPartner(partner);
-		
+			
 		// type - se não existir cria
-		Type type = typeRepository.findByType(prog.getType().getType()).orElseGet(() -> {
+		Type type = typeRepository.findByType(progDTO.getType()).orElseGet(() -> {
 			Type newType = new Type();
-			newType.setType(prog.getType().getType());
+			newType.setType(progDTO.getType());
 			return typeRepository.save(newType);
 		});
 		
+		
+		//associar
+		Program prog = ProgramMapper.toEntity(progDTO);
+		//associa o programa ao partner
+		prog.setPartner(partner);
 		//associa o type ao programa
 		prog.setType(type);
 		
