@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * 
  */
 @RestController
-@RequestMapping ("//user")
+@RequestMapping ("/api/user")  //endpoint
 public class UserController {
 	
 	private UserService userService;

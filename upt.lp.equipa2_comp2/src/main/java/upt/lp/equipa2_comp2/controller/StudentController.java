@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * 
  */
 @RestController
-@RequestMapping ("//student")
+@RequestMapping ("/api/student")
 public class StudentController {
 	
 	private final StudentService studentService;

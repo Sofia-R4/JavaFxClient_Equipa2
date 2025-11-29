@@ -48,6 +48,14 @@ public class Program {
 	public Long getId() {
 		return id;
 	}
+	
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	/**
 	 * @return the vagas
 	 */
@@ -118,8 +126,7 @@ public class Program {
 	public void setContact(int contact) {
 		this.contact = contact;
 	}
-	
-	
+		
 	/**
 	 * @return the type
 	 */
