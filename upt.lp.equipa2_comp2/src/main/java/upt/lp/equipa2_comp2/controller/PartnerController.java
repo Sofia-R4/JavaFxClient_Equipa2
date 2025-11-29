@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * 
  */
 @RestController
-@RequestMapping ("//Partners")
+@RequestMapping ("/api/Partners")
 public class PartnerController {
 	
 	private final PartnerService partnerService;

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * 
  */
 @RestController
-@RequestMapping ("//type")
+@RequestMapping ("/api/type")
 public class TypeController {
 	
 	private final TypeService typeService;

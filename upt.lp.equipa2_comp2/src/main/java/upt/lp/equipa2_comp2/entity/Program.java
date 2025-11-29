@@ -118,8 +118,7 @@ public class Program {
 	public void setContact(int contact) {
 		this.contact = contact;
 	}
-	
-	
+		
 	/**
 	 * @return the type
 	 */

@@ -19,8 +19,8 @@ public class Student extends User {
 		
 	}
 	
-	public Student(String nome, String email, String password, int num) {
-		super(nome, email, password);
+	public Student(String name, String email, String password, int num) {
+		super(name, email, password);
 		this.num = num;
 	}
 
@@ -29,6 +29,13 @@ public class Student extends User {
 	 */
 	public int getNum() {
 		return num;
+	}
+
+	/**
+	 * @param num the num to set
+	 */
+	public void setNum(int num) {
+		this.num = num;
 	}
 
 	@Override

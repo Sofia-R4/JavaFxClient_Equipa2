@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * 
  */
 @RestController
-@RequestMapping ("//programs")
+@RequestMapping ("/api/programs")
 public class ProgramController {
 	
 	private final ProgramService programService;
@@ -36,17 +36,18 @@ public class ProgramController {
 	 }
 	 
 	 @PostMapping
-	 public Program create (@RequestBody Program prog) {
+	 public Program createProgram (@RequestBody Program prog) {
 		 return programService.createProgram(prog);
 	 }
 	 
-	 @PutMapping("/{id}")
-	 public Program update(@PathVariable Long id, @RequestBody Program prog) {
-	 	return programService.updateProgram(id, prog);
+	 @PutMapping("/by-name/{nomeP}/location")
+	 public Program updateProgramLocation(@PathVariable String nomeP, @RequestBody Program prog) {
+	 	return programService.updateProgramPelaLocalizacao(nomeP, prog);
 	 }
 	 
 	 @DeleteMapping("{id}")
 	 public void delete (@PathVariable Long id) {
 		 programService.deleteProgram(id);
 	 } 
+	 
 }
