@@ -2,6 +2,11 @@ package upt.lp.equipa2_comp2.client;
 
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import upt.lp.equipa2_comp2.dto.ProgramDTO;
+
 import java.util.Scanner;
 
 
@@ -31,10 +36,9 @@ import java.util.Scanner;
 				case 3 -> createProgram(); 
 				case 4 -> createType();
 				case 5 -> listPrograms();
-				/*
-				 * case 5 -> listPrograms(); case 6 -> listUsers(); case 7 -> listStudents();
-				 * case 8 -> listTypes();
-				 */
+				case 6 -> listUsers();
+				case 7 -> listStudents();
+				case 8 -> listTypes();
 				 
 				case 0 -> {
 					System.out.println("A sair...");
@@ -166,9 +170,44 @@ import java.util.Scanner;
 			
 			try {
 				String response = rest.getForObject(url, String.class);
-				
-				System.out.println("");
 				System.out.println(response);
+				 
+			} catch(Exception e) {
+				System.out.println("Erro: " + e.getMessage());
+			}
+		}
+		
+		private static void listUsers() {
+			String url = BASE_URL + "/voluntariado/users";
+			
+			try {
+				String response = rest.getForObject(url, String.class);
+				System.out.println(response);
+				 
+			} catch(Exception e) {
+				System.out.println("Erro: " + e.getMessage());
+			}
+		}
+		
+		private static void listStudents() {
+			String url = BASE_URL + "/voluntariado/students";
+			
+			try {
+				String response = rest.getForObject(url, String.class);
+				System.out.println(response);
+				 
+			} catch(Exception e) {
+				System.out.println("Erro: " + e.getMessage());
+			}
+		}
+		
+		private static void listTypes() {
+			String url = BASE_URL + "/voluntariado/types";
+			
+			try {
+				String response = rest.getForObject(url, String.class);
+				System.out.println(response);
+				 
 			} catch(Exception e) {
 				System.out.println("Erro: " + e.getMessage());
 			}

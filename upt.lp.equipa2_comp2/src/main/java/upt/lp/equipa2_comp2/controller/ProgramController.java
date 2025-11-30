@@ -21,10 +21,10 @@ public class ProgramController {
 	 * @param programService
 	 */
 	public ProgramController(ProgramService programService) {
-		super();
+		
 		this.programService = programService;
 	}
-	
+	@GetMapping
 	public List<ProgramDTO> getAllPrograms() {
 		return programService.getAllPrograms()
 				.stream()
@@ -32,21 +32,21 @@ public class ProgramController {
 				.toList();
 	}
 	
-	 @GetMapping("/{id}")
-	 public ProgramDTO getById(@PathVariable Long id) {
-		 return ProgramMapper.toDTO(programService.getProgram(id));
+	 @GetMapping("/by-name/{nomeP}")
+	 public ProgramDTO getByName(@PathVariable String nomeP) {
+		 return ProgramMapper.toDTO(programService.getProgramByName(nomeP));
 	 }
 	 
 	 @PostMapping
 	 public ProgramDTO createProgram (@RequestBody ProgramDTO progDTO) {
-		 Program prog = ProgramMapper.toEntity(progDTO);
+		 
 		 return ProgramMapper.toDTO(programService.createProgram(progDTO));
 	 }
 	 
-	 @PutMapping("/{id}")
+	 @PutMapping("/by-name/{nomeP}")
 	 public ProgramDTO updateProgramLocation(@PathVariable String nomeP, @RequestBody ProgramDTO progDTO) {
 		 	Program update = programService.updateProgramPelaLocalizacao(nomeP, ProgramMapper.toEntity(progDTO));
-			 return ProgramMapper.toDTO(update);
+			 return ProgramMapper.toDTO(programService.updateProgramPelaLocalizacao(nomeP, ProgramMapper.toEntity(progDTO)));
 		 }
 	 
 	 @DeleteMapping("{id}")

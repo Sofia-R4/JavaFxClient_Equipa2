@@ -44,8 +44,8 @@ public class ProgramService {
 		return programRepository.findAll();
 	}
 	
-	public Program getProgram(Long id) {
-		return programRepository.findById(id).orElseThrow(() -> new RuntimeException("Program not found"));
+	public Program getProgramByName(String nameP) {
+		return programRepository.findByNomeP(nameP).orElseThrow(() -> new RuntimeException("Program not found"));
 	}
 	
 	public Program createProgram(ProgramDTO progDTO) {
