@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 
 public class StudentDTO {
-	 @NotBlank(message = "Tem de preencher obrigatoriamente o nome")
+	    @NotBlank(message = "Tem de preencher obrigatoriamente o nome")
 	    private String name;
 
 	    @NotBlank(message = "Tem de preencher o email obrigatoriamente")
@@ -19,12 +19,11 @@ public class StudentDTO {
 	    @NotNull(message = "O estudante deve ter um numero")
 	    private int num;
 	    
-	    
 	    public int getNum() {
 	    	return num;
 	    }
 	    public void setNum() {
-	    	this.num=num;
+	    	this.num = num;
 	    }
 	    
 	    public String getName() {
