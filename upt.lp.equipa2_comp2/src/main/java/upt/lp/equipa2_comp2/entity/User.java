@@ -4,9 +4,6 @@
 package upt.lp.equipa2_comp2.entity;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.DiscriminatorType;
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,10 +16,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table (name="users")
-@Inheritance (strategy = InheritanceType.SINGLE_TABLE) 
-@DiscriminatorColumn (name = "user_type", discriminatorType = 
-DiscriminatorType.STRING) 
-@DiscriminatorValue("Manager")
+@Inheritance (strategy = InheritanceType.JOINED)
 public class User {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -30,9 +24,7 @@ public class User {
 	private long id;
 	
 	private String name;
-	@Column (nullable = false)
 	private String email;
-	@Column (nullable = false)
 	private String password;
 	/**
 	 * @param nome
@@ -76,18 +68,20 @@ public class User {
 	public String getName() {
 		return name;
 	}
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
+	
+	
 	/**
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
 	}
 
 	/**

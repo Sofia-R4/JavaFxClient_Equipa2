@@ -3,6 +3,9 @@
  */
 package upt.lp.equipa2_comp2.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.*; 
 /**
  * 
@@ -28,6 +31,9 @@ public class Program {
 	@JoinColumn(name="partner_id", nullable= false)
 	private Partner partner;
 	private int vagas;
+	
+	@ManyToMany(mappedBy = "programasInscritos")
+	private List<Student> estudantes = new ArrayList<>();
 
 	public Program() {
 		
@@ -147,6 +153,10 @@ public class Program {
 	
 	public void setPartner(Partner partner) {
 		this.partner= partner;
+	}
+	
+	public List<Student> getEstudantes() {
+	    return estudantes;
 	}
 
 	@Override

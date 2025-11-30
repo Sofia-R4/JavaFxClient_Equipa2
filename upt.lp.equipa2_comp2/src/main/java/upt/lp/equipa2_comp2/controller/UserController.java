@@ -2,19 +2,21 @@
  * 
  */
 package upt.lp.equipa2_comp2.controller;
-import upt.lp.equipa2_comp2.entity.User;
+import upt.lp.equipa2_comp2.dto.UserDTO;
+import upt.lp.equipa2_comp2.dto.UserResponseDTO;
 import upt.lp.equipa2_comp2.service.UserService;
 
 import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 /**
  * 
  */
 @RestController
-@RequestMapping ("/api/user")  //endpoint
+@RequestMapping ("/voluntariado/users")
 public class UserController {
-	
+
 	private UserService userService;
 
 	/**
@@ -26,30 +28,18 @@ public class UserController {
 	}
 	
 	@GetMapping
-	public List<User>getAll(){
+	public List<UserResponseDTO>getAll(){
 		return userService.getAllUsers();
 	}
 	
 	@GetMapping("/{id}")
-	public User getById(@PathVariable Long id) {
+	public UserResponseDTO getById(@PathVariable Long id) {
 		return userService.getUser(id);
 	}
 	
-	@PostMapping
-	public User create (@RequestBody User u) {
-		return userService.createUser(u);
+	@PostMapping("/admin")
+	public UserResponseDTO create (@Valid  @RequestBody UserDTO dto) {
+		return userService.create(dto);
 	}
-	
-	@PutMapping("/{id}")
-	public User update(@PathVariable Long id, @RequestBody User u) {
-		return userService.updateUser(id, u);
-	}
-	
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id) {
-		userService.deleteUser(id);
-	}
-
-	//criação do repositório no git
 	
 }
