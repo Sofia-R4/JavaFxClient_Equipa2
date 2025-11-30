@@ -10,5 +10,5 @@ import upt.lp.equipa2_comp2.entity.User;
  * 
  */
 public interface UserRepository extends JpaRepository<User, Long> {
-
+	boolean existsByEmail(String email);
 }

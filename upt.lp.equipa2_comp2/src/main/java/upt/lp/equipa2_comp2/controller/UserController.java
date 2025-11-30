@@ -2,12 +2,14 @@
  * 
  */
 package upt.lp.equipa2_comp2.controller;
-import upt.lp.equipa2_comp2.entity.User;
+import upt.lp.equipa2_comp2.dto.UserDTO;
+import upt.lp.equipa2_comp2.dto.UserResponseDTO;
 import upt.lp.equipa2_comp2.service.UserService;
 
 import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 /**
  * 
  */
@@ -26,18 +28,18 @@ public class UserController {
 	}
 	
 	@GetMapping
-	public List<User>getAll(){
+	public List<UserResponseDTO>getAll(){
 		return userService.getAllUsers();
 	}
 	
 	@GetMapping("/{id}")
-	public User getById(@PathVariable Long id) {
+	public UserResponseDTO getById(@PathVariable Long id) {
 		return userService.getUser(id);
 	}
 	
 	@PostMapping("/admin")
-	public User create (@RequestBody User u) {
-		return userService.createUser(u);
+	public UserResponseDTO create (@Valid  @RequestBody UserDTO dto) {
+		return userService.create(dto);
 	}
 	
 }
