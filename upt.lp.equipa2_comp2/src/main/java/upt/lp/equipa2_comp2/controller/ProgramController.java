@@ -8,6 +8,7 @@ import upt.lp.equipa2_comp2.dto.ProgramDTO;
 import java.util.List;
 import upt.lp.equipa2_comp2.mapper.ProgramMapper;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 /**
  * 
  */
@@ -24,7 +25,7 @@ public class ProgramController {
 		super();
 		this.programService = programService;
 	}
-	
+	@GetMapping
 	public List<ProgramDTO> getAllPrograms() {
 		return programService.getAllPrograms()
 				.stream()
@@ -38,13 +39,13 @@ public class ProgramController {
 	 }
 	 
 	 @PostMapping
-	 public ProgramDTO createProgram (@RequestBody ProgramDTO progDTO) {
+	 public ProgramDTO createProgram (@Valid @RequestBody ProgramDTO progDTO) {
 		 Program prog = ProgramMapper.toEntity(progDTO);
 		 return ProgramMapper.toDTO(programService.createProgram(progDTO));
 	 }
 	 
 	 @PutMapping("/{id}")
-	 public ProgramDTO updateProgramLocation(@PathVariable String nomeP, @RequestBody ProgramDTO progDTO) {
+	 public ProgramDTO updateProgramLocation(@PathVariable String nomeP,@Valid @RequestBody ProgramDTO progDTO) {
 		 	Program update = programService.updateProgramPelaLocalizacao(nomeP, ProgramMapper.toEntity(progDTO));
 			 return ProgramMapper.toDTO(update);
 		 }

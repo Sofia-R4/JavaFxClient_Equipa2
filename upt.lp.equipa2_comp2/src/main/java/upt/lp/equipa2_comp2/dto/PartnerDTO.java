@@ -1,9 +1,11 @@
 package upt.lp.equipa2_comp2.dto;
+import jakarta.validation.constraints.NotBlank;
 
 public class PartnerDTO {
 	
 	private Long id;
 	
+	@NotBlank(message= "tem de preencher o nome do partner")
 	private String partner;
 
 	/**

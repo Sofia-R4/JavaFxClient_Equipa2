@@ -8,7 +8,7 @@ import upt.lp.equipa2_comp2.mapper.PartnerMapper;
 import upt.lp.equipa2_comp2.service.PartnerService;
 
 import java.util.List;
-
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -42,13 +42,13 @@ public class PartnerController {
 	 }
 	
 	@PostMapping
-	 public PartnerDTO createPartner(@RequestBody PartnerDTO pDTO) {
+	 public PartnerDTO createPartner(@Valid @RequestBody PartnerDTO pDTO) {
 		Partner p = PartnerMapper.toEntity(pDTO);
 		return PartnerMapper.toDTO(partnerService.createPartner(pDTO));
 	 }
 	
 	@PutMapping("/{id}")
-	 public PartnerDTO update(@PathVariable Long id, @RequestBody PartnerDTO pDTO) {
+	 public PartnerDTO update(@PathVariable Long id, @Valid @RequestBody PartnerDTO pDTO) {
 		Partner update = partnerService.updatePartner(id, pDTO);
 		return PartnerMapper.toDTO(update);
 	 }

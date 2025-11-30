@@ -3,11 +3,10 @@
  */
 package upt.lp.equipa2_comp2.controller;
 import upt.lp.equipa2_comp2.dto.TypeDTO;
-import upt.lp.equipa2_comp2.entity.Partner;
 import upt.lp.equipa2_comp2.entity.Type;
 import upt.lp.equipa2_comp2.service.TypeService;
-import upt.lp.equipa2_comp2.mapper.PartnerMapper;
 import upt.lp.equipa2_comp2.mapper.TypeMapper;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -43,13 +42,13 @@ public class TypeController {
 	}
 	
 	@PostMapping("/type")
-	public TypeDTO createType(@RequestBody TypeDTO tDTO) {
+	public TypeDTO createType(@Valid @RequestBody TypeDTO tDTO) {
 		Type t = TypeMapper.toEntity(tDTO);
 		return TypeMapper.toDTO(typeService.createType(tDTO));
 	}
 	
 	@PutMapping("/{id}")
-	public TypeDTO update(@PathVariable Long id, @RequestBody TypeDTO tDTO) {
+	public TypeDTO update(@PathVariable Long id,@Valid @RequestBody TypeDTO tDTO) {
 		Type update = typeService.updateType(id, tDTO);
 		return TypeMapper.toDTO(update);
 	}

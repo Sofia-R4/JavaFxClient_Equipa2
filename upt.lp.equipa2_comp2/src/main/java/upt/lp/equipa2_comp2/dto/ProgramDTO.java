@@ -1,15 +1,25 @@
 package upt.lp.equipa2_comp2.dto;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 public class ProgramDTO {
 	
 	private Long id;
-		
+	
+	@NotBlank(message= "tem de preencher o nome")
     private String nomeP;
+	@NotBlank(message= "tem de preencher a descriçao")
     private String description;
+	@NotBlank(message= "tem de preencher a localização")
     private String location;
+	@NotNull(message= "tem preencher o contacto")
+	@Size(min = 9, message = "A password deve ter pelo menos 9 caracteres")
     private int contact;
+	@NotNull(message= "tem preencher o numero de vagas")
     private int vagas;
+    @NotBlank(message= "tem de preencher o partner")
     private String partner;
+    @NotBlank(message= "tem de preencher o tipo")
     private String type;
     
 	/**
