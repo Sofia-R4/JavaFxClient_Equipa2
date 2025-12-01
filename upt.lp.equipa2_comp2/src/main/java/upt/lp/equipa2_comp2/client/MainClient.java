@@ -3,10 +3,8 @@ package upt.lp.equipa2_comp2.client;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import upt.lp.equipa2_comp2.dto.ProgramDTO;
-import upt.lp.equipa2_comp2.dto.TypeDTO;
 
 import java.util.Scanner;
 
