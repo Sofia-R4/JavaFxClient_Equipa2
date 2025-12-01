@@ -13,7 +13,6 @@ public class ProgramDTO {
 	@NotBlank(message= "Tem de preencher a localização")
     private String location;
 	@NotNull(message= "Tem preencher o contacto")
-	@Size(min = 9, message = "O contacto deve ter pelo menos 9 caracteres")
     private int contact;
 	@NotNull(message= "Tem preencher o número de vagas")
     private int vagas;

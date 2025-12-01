@@ -16,8 +16,8 @@ public class ProgramMapper {
 		dto.setLocation(prog.getLocation());
 		dto.setContact(prog.getContact());
 		dto.setVagas(prog.getVagas());
-		dto.setPartner(prog.getPartner().getPartner()); // pegar o nome
-		dto.setType(prog.getType().getType());          // pegar o nome
+		dto.setPartner(prog.getPartner() !=null ? prog.getPartner().getPartner() : null); // pegar o nome
+		dto.setType(prog.getType() !=null ? prog.getType().getType() : null);          // pegar o nome
 		return dto;
 	}
 	 

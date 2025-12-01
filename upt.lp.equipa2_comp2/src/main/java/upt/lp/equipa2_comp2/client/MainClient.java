@@ -6,6 +6,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import upt.lp.equipa2_comp2.dto.ProgramDTO;
+import upt.lp.equipa2_comp2.dto.TypeDTO;
 
 import java.util.Scanner;
 
@@ -26,6 +27,8 @@ import java.util.Scanner;
 				System.out.println("6 - Listar users");
 				System.out.println("7 - Listar students");
 				System.out.println("8 - Listar types");
+				System.out.println("9 - Mudar a localização de um programa");
+				System.out.println("10 - Procurar um programa por nome");
 				System.out.println("0 - Sair");
 				
 				int option = Integer.parseInt(sc.nextLine());
@@ -39,6 +42,8 @@ import java.util.Scanner;
 				case 6 -> listUsers();
 				case 7 -> listStudents();
 				case 8 -> listTypes();
+				case 9 -> mudarLocation();
+				case 10 -> searchProgPorNome();
 				 
 				case 0 -> {
 					System.out.println("A sair...");
@@ -118,6 +123,7 @@ import java.util.Scanner;
 		    
 		    System.out.print("Contacto: ");
 		    int contact = sc.nextInt();
+		    sc.nextLine();
 		    
 		    System.out.print("Número de vagas disponiveis: ");
 		    int vagas = sc.nextInt();
@@ -134,8 +140,8 @@ import java.util.Scanner;
 		      "nomeP": "%s",
 		      "description": "%s",
 		      "location": "%s",
-		      "contact": "%s",
-		      "vagas": "%s",
+		      "contact": "%d",
+		      "vagas": "%d",
 		      "partner": "%s",
 		      "type": "%s"
 		    }
@@ -144,7 +150,7 @@ import java.util.Scanner;
 		    HttpHeaders headers = new HttpHeaders();
 		    headers.setContentType(MediaType.APPLICATION_JSON);
 		    HttpEntity<String> request = new HttpEntity<>(json, headers);	
-		    String response = rest.postForObject(BASE_URL + "/voluntariado/programs", request, String.class);
+		    String response = rest.postForObject(BASE_URL + "/voluntariado/programs/criar", request, String.class);
 		    System.out.println(response);
 		    }
 		
@@ -161,7 +167,7 @@ import java.util.Scanner;
 		    HttpHeaders headers = new HttpHeaders();
 		    headers.setContentType(MediaType.APPLICATION_JSON);
 		    HttpEntity<String> request = new HttpEntity<>(json, headers);
-		    String response = rest.postForObject(BASE_URL + "/voluntariado/type", request, String.class);
+		    String response = rest.postForObject(BASE_URL + "/voluntariado/types/type", request, String.class);
 		    System.out.println(response);
 		    }
 		
@@ -212,6 +218,57 @@ import java.util.Scanner;
 				System.out.println("Erro: " + e.getMessage());
 			}
 		}
+		
+		private static void mudarLocation() {
+		    System.out.print("Nome do programa: ");
+		    String nomeP = sc.nextLine();
+
+		    String urlGet = BASE_URL + "/voluntariado/programs/by-name/" + nomeP;
+		    ProgramDTO progDTO;
+		    try {
+		        progDTO = rest.getForObject(urlGet, ProgramDTO.class); // pega DTO completo
+		        if (progDTO == null) {
+		            System.out.println("Programa não encontrado");
+		            return;
+		        }
+		    } catch (Exception e) {
+		        System.out.println("Programa não encontrado");
+		        return;
+		    }
+
+		    System.out.print("Insira a nova localização: ");
+		    String novaLocation = sc.nextLine();
+		    progDTO.setLocation(novaLocation); // atualiza so a localização
+
+		    HttpHeaders headers = new HttpHeaders();
+		    headers.setContentType(MediaType.APPLICATION_JSON);
+		    HttpEntity<ProgramDTO> request = new HttpEntity<>(progDTO, headers);
+
+		    String urlPut = BASE_URL + "/voluntariado/programs/by-name/" + nomeP;
+		    try {
+		        ProgramDTO response = rest.exchange(urlPut, HttpMethod.PUT, request, ProgramDTO.class).getBody();
+		        System.out.println("Programa atualizado!");
+		    } catch (Exception e) {
+		        System.out.println("Erro ao atualizar localização: " + e.getMessage());
+		    }
+		}
+		
+		private static void searchProgPorNome() {
+			System.out.println("Nome do programa: ");
+			String nomeP = sc.nextLine();
+			
+			String urlGet = BASE_URL + "/voluntariado/programs/by-name/" + nomeP;
+			ProgramDTO progDTO;
+			
+			try {
+				String response = rest.getForObject(urlGet, String.class);
+				System.out.println(response);
 				
+			} catch (Exception e) {
+				System.out.println("Programa não encontrado");
+				return;
+			}						
+		}
+					
 	}
 	

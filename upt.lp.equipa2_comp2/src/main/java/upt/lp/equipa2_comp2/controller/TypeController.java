@@ -36,7 +36,7 @@ public class TypeController {
 				.toList();
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/by-name/{type}")
 	public TypeDTO getById(@PathVariable Long id) {
 		return TypeMapper.toDTO(typeService.getType(id));
 	}

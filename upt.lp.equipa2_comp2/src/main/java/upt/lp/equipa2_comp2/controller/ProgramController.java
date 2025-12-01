@@ -22,7 +22,7 @@ public class ProgramController {
 	 * @param programService
 	 */
 	public ProgramController(ProgramService programService) {
-		
+		super();
 		this.programService = programService;
 	}
 	@GetMapping
@@ -38,7 +38,7 @@ public class ProgramController {
 		 return ProgramMapper.toDTO(programService.getProgramByName(nomeP));
 	 }
 	 
-	 @PostMapping
+	 @PostMapping("/criar")
 	 public ProgramDTO createProgram (@Valid @RequestBody ProgramDTO progDTO) {
 		 Program prog = ProgramMapper.toEntity(progDTO);
 
