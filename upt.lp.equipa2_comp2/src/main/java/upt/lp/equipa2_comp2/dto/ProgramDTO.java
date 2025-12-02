@@ -8,16 +8,22 @@ public class ProgramDTO {
 	
 	@NotBlank(message= "Tem de preencher o nome")
     private String nomeP;
+	
 	@NotBlank(message= "Tem de preencher a descrição")
     private String description;
+	
 	@NotBlank(message= "Tem de preencher a localização")
     private String location;
+	
 	@NotNull(message= "Tem preencher o contacto")
     private int contact;
+	
 	@NotNull(message= "Tem preencher o número de vagas")
     private int vagas;
+	
     @NotBlank(message= "Tem de preencher o partner")
     private String partner;
+    
     @NotBlank(message= "Tem de preencher o tipo")
     private String type;
     
@@ -27,18 +33,21 @@ public class ProgramDTO {
 	public Long getId() {
 		return id;
 	}
+	
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
 	/**
 	 * @return the nomeP
 	 */
 	public String getNomeP() {
 		return nomeP;
 	}
+	
 	/**
 	 * @param nomeP the nomeP to set
 	 */
@@ -51,36 +60,42 @@ public class ProgramDTO {
 	public String getDescription() {
 		return description;
 	}
+	
 	/**
 	 * @param description the description to set
 	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 	/**
 	 * @return the location
 	 */
 	public String getLocation() {
 		return location;
 	}
+	
 	/**
 	 * @param location the location to set
 	 */
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	
 	/**
 	 * @return the contact
 	 */
 	public int getContact() {
 		return contact;
 	}
+	
 	/**
 	 * @param contact the contact to set
 	 */
 	public void setContact(int contact) {
 		this.contact = contact;
 	}
+	
 	/**
 	 * @return the vagas
 	 */

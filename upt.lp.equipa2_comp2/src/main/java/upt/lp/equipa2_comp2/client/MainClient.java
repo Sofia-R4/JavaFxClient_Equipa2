@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 	public class MainClient {
 		private static final String BASE_URL = "http://localhost:8080";
-		private static final RestTemplate rest = new RestTemplate();
+		private static final RestTemplate rest = new RestTemplate();  //cria um objeto spring que sera usado para metodos HTTP
 		private static final Scanner sc = new Scanner(System.in);
 		
 		public static void main(String[] args) {
@@ -73,10 +73,11 @@ import java.util.Scanner;
 		    }
 		    """.formatted(name, email, password);
 
-		    HttpHeaders headers = new HttpHeaders();
-		    headers.setContentType(MediaType.APPLICATION_JSON);
-		    HttpEntity<String> request = new HttpEntity<>(json, headers);
+		    HttpHeaders headers = new HttpHeaders(); //cria um objeto que guarda informação http
+		    headers.setContentType(MediaType.APPLICATION_JSON);  //define que o tipo de conteúdo da requisição é JSON
+		    HttpEntity<String> request = new HttpEntity<>(json, headers);  //usado pelo Spring para requisições corpo e cabeçalho e cria pacote
 		    String response = rest.postForObject(BASE_URL + "/voluntariado/users/admin", request, String.class);
+		    //template rest do spring, envia uma requisição post
 		    System.out.println(response);
 		    }
 		
