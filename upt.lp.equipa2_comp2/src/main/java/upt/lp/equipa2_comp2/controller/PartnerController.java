@@ -41,13 +41,13 @@ public class PartnerController {
 		return PartnerMapper.toDTO(partnerService.getPartner(id));
 	 }
 	
-	@PostMapping
+	@PostMapping("/partner")
 	 public PartnerDTO createPartner(@Valid @RequestBody PartnerDTO pDTO) {
 		Partner p = PartnerMapper.toEntity(pDTO);
 		return PartnerMapper.toDTO(partnerService.createPartner(pDTO));
 	 }
 	
-	@PutMapping("/{id}")
+	@PutMapping("/by-name/{id}")
 	 public PartnerDTO update(@PathVariable Long id, @Valid @RequestBody PartnerDTO pDTO) {
 		Partner update = partnerService.updatePartner(id, pDTO);
 		return PartnerMapper.toDTO(update);
