@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 	public class MainClient {
 		private static final String BASE_URL = "http://localhost:8080";
-		private static final RestTemplate rest = new RestTemplate();
+		private static final RestTemplate rest = new RestTemplate();  //cria um objeto spring que sera usado para metodos HTTP
 		private static final Scanner sc = new Scanner(System.in);
 		
 		public static void main(String[] args) {
