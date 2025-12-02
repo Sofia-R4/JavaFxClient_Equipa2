@@ -11,5 +11,5 @@ import upt.lp.equipa2_comp2.entity.Student;
  */
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
-	boolean existsByEmail(String email);
+	boolean existsByEmail(String email); //verifica se já existe na bd
 }

@@ -14,8 +14,5 @@ import upt.lp.equipa2_comp2.entity.Program;
 @Repository
 public interface ProgramRepository extends JpaRepository<Program, Long> {
 
-	Optional<Program> findByNomeP(String nomeP);  //query automatica do SPJPA
-	
-	
-
+	Optional<Program> findByNomeP(String nomeP);  //query automatica do JPA para procurar um nome, pode existir ou não
 }
