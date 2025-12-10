@@ -16,7 +16,7 @@ import java.util.Scanner;
 		
 		public static void main(String[] args) {
 			while (true) {
-				System.out.println("\n");
+				System.out.println(" 💕Voluntariado💕");
 				System.out.println("1 - Criar admin");
 				System.out.println("2 - Criar estudante");
 				System.out.println("3 - Criar programa");			
@@ -73,10 +73,10 @@ import java.util.Scanner;
 		    }
 		    """.formatted(name, email, password);
 		    
-		    HttpHeaders headers = new HttpHeaders();
-		    headers.setContentType(MediaType.APPLICATION_JSON);
-		    HttpEntity<String> request = new HttpEntity<>(json, headers);
-		    String response = rest.postForObject(BASE_URL + "/voluntariado/users/criar/admin", request, String.class);
+		    HttpHeaders headers = new HttpHeaders();// cria um objeto q guarda inf http
+		    headers.setContentType(MediaType.APPLICATION_JSON);//define q o tipo de conteudo da requisiçao e de formato json
+		    HttpEntity<String> request = new HttpEntity<>(json, headers);//usado pelo spring para enviar requisiçoes corpo e cabeçalho
+		    String response = rest.postForObject(BASE_URL + "/voluntariado/users/criar/admin", request, String.class);//template rest do spring envia uma requisiçao post para o endpoint e guarda a resposta no servidor 
 		}
 		
 		private static void createStudent() {
@@ -89,7 +89,7 @@ import java.util.Scanner;
 		    System.out.print("Password: ");
 		    String password = sc.nextLine();
 		    
-		    System.out.println("Número de aluno: 7");
+		    System.out.println("Número de aluno: ");
 		    int num = Integer.parseInt(sc.nextLine());
 
 		    String json = """
@@ -173,7 +173,8 @@ import java.util.Scanner;
 			
 			try {
 				String response = rest.getForObject(url, String.class);
-				System.out.println(response);
+				System.out.println(response+"/n");
+				//Vai buscar os dados do endpoint e devolve o corpo da resposta da base de dados
 				 
 			} catch(Exception e) {
 				System.out.println("Erro: " + e.getMessage());

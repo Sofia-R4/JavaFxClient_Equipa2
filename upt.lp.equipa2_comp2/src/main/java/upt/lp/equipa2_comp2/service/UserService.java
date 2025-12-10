@@ -33,8 +33,7 @@ public class UserService {
     }
 
     public UserResponseDTO getUser(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User não encontrado"));
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User não encontrado"));
         return UserMapper.toDTO(user);
     }
 
