@@ -32,7 +32,7 @@ public class TypeService {
 	}
 	
 	public Type getType(Long id) {
-		return typeRepository.findById(id).orElseThrow(()-> new RuntimeException("Type not found"));
+		return typeRepository.findById(id).orElseThrow(()-> new RuntimeException("Tipo não encontrado"));
 	}
 	
 	public Type createType(TypeDTO tDTO) {
@@ -41,7 +41,7 @@ public class TypeService {
 	}
 	
 	public Type updateType(Long id, TypeDTO tDTO) {
-		Type existing = typeRepository.findById(id).orElseThrow(() -> new RuntimeException("Type not found"));
+		Type existing = typeRepository.findById(id).orElseThrow(() -> new RuntimeException("Tipo não encontrado"));
 		existing.setType(tDTO.getType());
 		return typeRepository.save(existing);
 	}

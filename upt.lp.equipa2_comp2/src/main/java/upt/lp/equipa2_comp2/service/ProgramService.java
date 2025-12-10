@@ -45,7 +45,7 @@ public class ProgramService {
 	}
 	
 	public Program getProgramByName(String nameP) { //procura um programa pelo nome
-		return programRepository.findByNomeP(nameP).orElseThrow(() -> new RuntimeException("Program not found"));
+		return programRepository.findByNomeP(nameP).orElseThrow(() -> new RuntimeException("Programa não encontrado"));
 	}  //chama o repositório que fala com a bd e devolve o que encontrar (que pode ou não existir)
 	
 	public Program createProgram(ProgramDTO progDTO) {
@@ -76,7 +76,7 @@ public class ProgramService {
 	}
 	
 	public Program updateProgramPelaLocalizacao(String nomeP, Program prog) {
-		Program existing = programRepository.findByNomeP(nomeP).orElseThrow(() -> new RuntimeException("Program not found"));
+		Program existing = programRepository.findByNomeP(nomeP).orElseThrow(() -> new RuntimeException("Programa não encontrado"));
 		//procura na bd se existe, se não retorna nao encontrado
 		if (prog.getLocation() != null && !prog.getLocation().isBlank()) { //se localizaçao nao for null nem estiver em branco
 		    existing.setLocation(prog.getLocation()); //atualiza

@@ -39,7 +39,7 @@ public class StudentController {
 		return studentService.getStudent(id);
 	}
 	
-	@PostMapping("/student")
+	@PostMapping("/criar/student")
 	public StudentResponseDTO create (@Valid @RequestBody StudentDTO dto) {
 		return studentService.createStudent(dto);
 	}

@@ -5,7 +5,7 @@ public class PartnerDTO {
 	
 	private Long id;
 	
-	@NotBlank(message= "tem de preencher o nome do partner")
+	@NotBlank(message= "Tem de preencher o nome do partner")
 	private String partner;
 
 	/**

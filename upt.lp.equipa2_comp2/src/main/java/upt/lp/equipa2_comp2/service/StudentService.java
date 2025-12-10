@@ -37,8 +37,7 @@ public class StudentService {
 	}
 	
 	public StudentResponseDTO getStudent(Long id) {
-		Student s= studentRepository.findById(id)
-				.orElseThrow(()-> new RuntimeException("Estudante nao encontrado"));
+		Student s= studentRepository.findById(id).orElseThrow(()-> new RuntimeException("Estudante nao encontrado"));
 		
 		return StudentMapper.toDTO(s);
 	}

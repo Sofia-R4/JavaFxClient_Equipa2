@@ -33,7 +33,7 @@ public class PartnerService {
 	}
 	
 	public Partner getPartner(Long id) {
-		return partnerRepository.findById(id).orElseThrow(() -> new RuntimeException("Partner not found"));
+		return partnerRepository.findById(id).orElseThrow(() -> new RuntimeException("Parceiro não encontrado"));
 	}
 	
 	public Partner createPartner(PartnerDTO pDTO) {
@@ -42,7 +42,7 @@ public class PartnerService {
 	}
 	
 	public Partner updatePartner(Long id, PartnerDTO pDTO) {
-		Partner existing = partnerRepository.findById(id).orElseThrow(() -> new RuntimeException("Partner not found"));
+		Partner existing = partnerRepository.findById(id).orElseThrow(() -> new RuntimeException("Parceiro não encontrado"));
 		existing.setPartner(pDTO.getPartner());
 		return partnerRepository.save(existing);
 	}
