@@ -36,7 +36,7 @@ public class TypeController {
 				.toList();
 	}
 	
-	@GetMapping("/by-name/{type}")
+	@GetMapping("/{type}")
 	public TypeDTO getById(@PathVariable Long id) {
 		return TypeMapper.toDTO(typeService.getType(id));
 	}
@@ -47,7 +47,7 @@ public class TypeController {
 		return TypeMapper.toDTO(typeService.createType(tDTO));
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping("/by-name/{id}")
 	public TypeDTO update(@PathVariable Long id,@Valid @RequestBody TypeDTO tDTO) {
 		Type update = typeService.updateType(id, tDTO);
 		return TypeMapper.toDTO(update);

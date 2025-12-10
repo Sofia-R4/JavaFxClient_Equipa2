@@ -37,7 +37,7 @@ public class UserController {
 		return userService.getUser(id);
 	}
 	
-	@PostMapping("/admin")
+	@PostMapping("/criar/admin")
 	public UserResponseDTO create (@Valid  @RequestBody UserDTO dto) {
 		return userService.create(dto);
 	}

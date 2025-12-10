@@ -3,28 +3,26 @@ package upt.lp.equipa2_comp2.client;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import upt.lp.equipa2_comp2.dto.ProgramDTO;
-import upt.lp.equipa2_comp2.dto.TypeDTO;
 
 import java.util.Scanner;
 
 
 	public class MainClient {
 		private static final String BASE_URL = "http://localhost:8080";
-		private static final RestTemplate rest = new RestTemplate();  //cria um objeto spring que sera usado para metodos HTTP
+		private static final RestTemplate rest = new RestTemplate();// cria um objeto spring que sera usado para metodos http
 		private static final Scanner sc = new Scanner(System.in);
 		
 		public static void main(String[] args) {
 			while (true) {
-				System.out.println("\n");
+				System.out.println(" 💕Voluntariado💕");
 				System.out.println("1 - Criar admin");
 				System.out.println("2 - Criar estudante");
 				System.out.println("3 - Criar programa");			
 				System.out.println("4 - Criar Type");
 				System.out.println("5 - Listar programas");
-				System.out.println("6 - Listar users");
+				System.out.println("6 - Listar todos os utilizadores");
 				System.out.println("7 - Listar students");
 				System.out.println("8 - Listar types");
 				System.out.println("9 - Mudar a localização de um programa");
@@ -74,14 +72,12 @@ import java.util.Scanner;
 		      "password": "%s"
 		    }
 		    """.formatted(name, email, password);
-
-		    HttpHeaders headers = new HttpHeaders(); //cria um objeto que guarda informação http
-		    headers.setContentType(MediaType.APPLICATION_JSON);  //define que o tipo de conteúdo da requisição é JSON
-		    HttpEntity<String> request = new HttpEntity<>(json, headers);  //usado pelo Spring para requisições corpo e cabeçalho e cria pacote
-		    String response = rest.postForObject(BASE_URL + "/voluntariado/users/admin", request, String.class);
-		    //template rest do spring, envia uma requisição post
-		    System.out.println(response);
-		    }
+		    
+		    HttpHeaders headers = new HttpHeaders();// cria um objeto q guarda inf http
+		    headers.setContentType(MediaType.APPLICATION_JSON);//define q o tipo de conteudo da requisiçao e de formato json
+		    HttpEntity<String> request = new HttpEntity<>(json, headers);//usado pelo spring para enviar requisiçoes corpo e cabeçalho
+		    String response = rest.postForObject(BASE_URL + "/voluntariado/users/criar/admin", request, String.class);//template rest do spring envia uma requisiçao post para o endpoint e guarda a resposta no servidor 
+		}
 		
 		private static void createStudent() {
 		    System.out.print("Nome: ");
@@ -93,7 +89,7 @@ import java.util.Scanner;
 		    System.out.print("Password: ");
 		    String password = sc.nextLine();
 		    
-		    System.out.println("Número de aluno");
+		    System.out.println("Número de aluno: ");
 		    int num = Integer.parseInt(sc.nextLine());
 
 		    String json = """
@@ -108,7 +104,7 @@ import java.util.Scanner;
 		    HttpHeaders headers = new HttpHeaders();
 		    headers.setContentType(MediaType.APPLICATION_JSON);
 		    HttpEntity<String> request = new HttpEntity<>(json, headers);	
-		    String response = rest.postForObject(BASE_URL + "/voluntariado/students/student", request, String.class);
+		    String response = rest.postForObject(BASE_URL + "/voluntariado/students/criar/student", request, String.class);
 		    System.out.println(response);
 		    }
 		
@@ -177,7 +173,8 @@ import java.util.Scanner;
 			
 			try {
 				String response = rest.getForObject(url, String.class);
-				System.out.println(response);
+				System.out.println(response+"/n");
+				//Vai buscar os dados do endpoint e devolve o corpo da resposta da base de dados
 				 
 			} catch(Exception e) {
 				System.out.println("Erro: " + e.getMessage());
@@ -263,7 +260,7 @@ import java.util.Scanner;
 			
 			try {
 				String response = rest.getForObject(urlGet, String.class);
-				System.out.println(response);
+				System.out.println("Programa encontrado: "+response);
 				
 			} catch (Exception e) {
 				System.out.println("Programa não encontrado");
