@@ -2,12 +2,20 @@
  * 
  */
 package lp.JavaFxClient.controllers;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.event.ActionEvent;
+
 
 /**
  * 
  */
 public class programController {
 	
-	//criação controller
+	@FXML
+	 private TextField txtNome;
+	
+	
 
 }
