@@ -5,35 +5,28 @@
  <groupId>lp</groupId>
  <artifactId>JavaFxClient</artifactId>
  <version>1.0-SNAPSHOT</version>
-Para definir a versão do Java usada (21) e a versão do JavaFX:
+ 
  <properties>
  <maven.compiler.source>21</maven.compiler.source>
  <maven.compiler.target>21</maven.compiler.target>
  <javafx.version>21.0.1</javafx.version>
  </properties>
  <dependencies>
- Indicar as bibliotecas externas que o Maven descarrega automaticamente
-JavaFX Controls Inclui: Buttons, Labels, TextFields, ListViews, TableViews
-É onde estão quase todos os widgets gráficos do JavaFX.
+ 
  <!-- JavaFX Controls -->
  <dependency>
  <groupId>org.openjfx</groupId>
  <artifactId>javafx-controls</artifactId>
  <version>${javafx.version}</version>
  </dependency>
-JavaFC FXML é necessário para o FXML funcionar: carregar ficheiros .fxml, ligar interface →
-controller, usar o FXMLLoader
+ 
  <!-- JavaFX FXML -->
  <dependency>
  <groupId>org.openjfx</groupId>
  <artifactId>javafx-fxml</artifactId>
  <version>${javafx.version}</version>
  </dependency>
-jackson-databind (é opcional mas recomendado) serve para: converter JSON em objetos Java e
-objetos Java em JSON; útil quando de faz:
-Book book = mapper.readValue(json, Book.class);
-No cliente consola escrevia-se JSON à mão; no cliente JavaFX pode-se querer criar objetos
-(StudentDTO, etc.).
+
  <!-- JSON converter (opcional, recomendado) -->
  <dependency>
  <groupId>com.fasterxml.jackson.core</groupId>
@@ -43,15 +36,13 @@ No cliente consola escrevia-se JSON à mão; no cliente JavaFX pode-se querer cr
  </dependencies>
   <build>
  <plugins>
+ 
  <!-- Plugin para correr JavaFX via Maven -->
-Sem este plugin o Maven não consegue arrancar JavaFX.
  <plugin>
  <groupId>org.openjfx</groupId>
  <artifactId>javafx-maven-plugin</artifactId>
  <version>0.0.8</version>
-O plugin JavaFX precisa de saber qual a classe que tem o método main() ou extende Application –
-esta configuração diz ao Maven para arrancar a app usando a classe App dentro do package
-lp.JavaFxClient.”
+
  <configuration>
  <mainClass>lp.JavaFxClient.App</mainClass>
  </configuration>
