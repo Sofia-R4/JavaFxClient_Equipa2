@@ -8,16 +8,23 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 
-	@Override
-	public void start(Stage stage) throws Exception {
-	    Parent root = FXMLLoader.load(getClass().getResource("/menu.fxml"));
-	    stage.setTitle("Menu Principal");
-	    stage.setScene(new Scene(root));
-	    stage.show();
-	}
+    @Override
+    public void start(Stage stage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main-view.fxml"));
+        Scene scene = new Scene(loader.load());
+
+        stage.setTitle("Voluntariado");
+        stage.setScene(scene);
+
+        // Set preferred window size
+        stage.setWidth(500);   // or 600, 800, whatever you prefer
+        stage.setHeight(400);  // optional
+
+        stage.show();
+    }
 
 
     public static void main(String[] args) {
-        launch(args); // inicializa o JavaFX
+        launch();
     }
 }
