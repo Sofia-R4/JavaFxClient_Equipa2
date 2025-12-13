@@ -8,21 +8,23 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 
+
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        // Carrega o FXML
-        Parent root = FXMLLoader.load(getClass().getResource("/menuEstudante.fxml"));
-        
-        // Cria a cena
-        Scene scene = new Scene(root);
-        
-        // Configura a janela
-        primaryStage.setTitle("Perfil Estudante");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public void start(Stage stage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main-view.fxml"));
+        Scene scene = new Scene(loader.load());
+
+        stage.setTitle("Voluntariado");
+        stage.setScene(scene);
+
+        // Set preferred window size
+        stage.setWidth(500);   // or 600, 800, whatever you prefer
+        stage.setHeight(400);  // optional
+
+        stage.show();
     }
 
     public static void main(String[] args) {
-        launch(args); // inicializa o JavaFX
+        launch();
     }
 }

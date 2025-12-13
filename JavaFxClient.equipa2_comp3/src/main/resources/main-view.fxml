@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ 
+<?import javafx.scene.layout.*?> 
+<?import javafx.scene.control.*?> 
+ 
+<BorderPane xmlns:fx="http://javafx.com/fxml" 
+            fx:controller="lp.JavaFxClient.controllers.MainController"> 
+ 
+    <!-- Top: Menu --> 
+    <top> 
+        <MenuBar> 
+            <menus> 
+                <Menu text="File"> 
+                    <MenuItem text="Exit" onAction="#onExit"/> 
+                </Menu> 
+                <Menu text="View"> 
+                    <MenuItem text="Students" onAction="#showStudentsView"/> 
+                    <MenuItem text="Programs" onAction="#showProgramsView"/> 
+                    <MenuItem text="Types" onAction="#showTypesView"/> 
+                </Menu> 
+            </menus> 
+        </MenuBar> 
+    </top> 
+ 
+    <!-- Left: Sidebar --> 
+    <left> 
+        <VBox spacing="10" style="-fx-padding: 10;"> 
+            <Label text="Navigation" style="-fx-font-weight: bold;"/> 
+            <Button text="Students"    onAction="#showStudentsView"   maxWidth="Infinity"/> 
+            <Button text="Programs"     onAction="#showProgramsView"    maxWidth="Infinity"/> 
+            <Button text="Types" onAction="#showTypesView" maxWidth="Infinity"/> 
+        </VBox> 
+    </left> 
+ 
+    <!-- Center: Content area to swap views --> 
+    <center> 
+        <AnchorPane fx:id="contentPane"/> 
+    </center> 
+ 
+</BorderPane>
