@@ -35,6 +35,11 @@ public class MainController {
     public void showTypesView() {
         loadView("/type-view.fxml");
     }
+    
+    @FXML
+    public void showPartnersView() {
+    	loadView("/partner-view.fxml");
+    }
 
     private void loadView(String fxmlPath) {
         try {

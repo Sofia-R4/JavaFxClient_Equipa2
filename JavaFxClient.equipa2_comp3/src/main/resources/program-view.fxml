@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lp.JavaFxClient.controllers.ProgramController">
    <padding>
       <Insets top="10.0" />
@@ -19,17 +18,21 @@
          <children>
             <Label text="Programs" />
             <Pane prefHeight="200.0" prefWidth="200.0" />
-            <Button mnemonicParsing="false" text="Refresh" />
-            <Button mnemonicParsing="false" text="Add" />
-            <Button mnemonicParsing="false" text="Edit" />
+            <Button mnemonicParsing="false" onAction="#onRefresh" text="Refresh" />
+            <Button mnemonicParsing="false" onAction="#onAddProgram" text="Add" />
+            <Button mnemonicParsing="false" onAction="#onEditProgram" text="Edit" />
          </children>
       </HBox>
       <TableView fx:id="tablePrograms" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn fx:id="idProg" prefWidth="75.0" text="ID" />
-          <TableColumn fx:id="nameProg" prefWidth="75.0" text="Name" />
-            <TableColumn fx:id="typeProg" prefWidth="75.0" text="Type" />
-            <TableColumn fx:id="contactProg" prefWidth="75.0" text="Contact" />
+          <TableColumn fx:id="idProg" prefWidth="36.666656494140625" text="ID" />
+          <TableColumn fx:id="nameProg" prefWidth="82.0" text="Name" />
+            <TableColumn fx:id="typeProg" prefWidth="69.33331298828125" text="Type" />
+            <TableColumn fx:id="contactProg" prefWidth="68.0" text="Contact" />
+            <TableColumn fx:id="descriptionProg" prefWidth="121.33331298828125" text="Description" />
+            <TableColumn fx:id="locationProg" prefWidth="75.0" text="Location" />
+            <TableColumn fx:id="vacancyProg" prefWidth="75.0" text="Vacancy" />
+            <TableColumn fx:id="partnerProg" prefWidth="75.0" text="Partner" />
         </columns>
       </TableView>
    </children>

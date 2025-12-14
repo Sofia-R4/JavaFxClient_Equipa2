@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import lp.JavaFxClient.DTO.PartnerDTO;
 import lp.JavaFxClient.DTO.ProgramDTO;
 import lp.JavaFxClient.DTO.TypeDTO;
 import lp.JavaFxClient.services.ApiService;
@@ -15,6 +16,11 @@ public class ProgramFormController {
     @FXML private TextField txtName;
     @FXML private TextField txtContact;
     @FXML private ComboBox<TypeDTO> comboType;
+    @FXML private TextField txtDescription;
+    @FXML private TextField txtLocation;
+    @FXML private TextField txtVacancy;
+    @FXML private ComboBox<PartnerDTO> comboPartner;
+
 
     private final ApiService api = new ApiService();
     private final ObjectMapper mapper = new ObjectMapper();
@@ -24,11 +30,12 @@ public class ProgramFormController {
     @FXML
     public void initialize() {
         loadTypes();
+        loadPartners();
     }
 
     private void loadTypes() {
         try {
-            String json = api.get("/voluntariado/types");
+            String json = api.get("/types");
             List<TypeDTO> list =
                     mapper.readValue(json, new TypeReference<List<TypeDTO>>() {});
             comboType.getItems().setAll(list);
@@ -37,6 +44,20 @@ public class ProgramFormController {
             new Alert(Alert.AlertType.ERROR, "Error loading types: " + e.getMessage()).showAndWait();
         }
     }
+    
+    private void loadPartners() {
+        try {
+            String json = api.get("/partners");
+            List<PartnerDTO> list =
+                    mapper.readValue(json, new TypeReference<List<PartnerDTO>>() {});
+            comboPartner.getItems().setAll(list);
+
+        } catch (Exception e) {
+        	new Alert(Alert.AlertType.ERROR, "Error loading partners: " + e.getMessage()).showAndWait();
+        }
+    }
+
+
 
     /** Fill form fields when editing */
     public void loadProgram(ProgramDTO p) {
@@ -50,41 +71,68 @@ public class ProgramFormController {
                 .filter(t -> t.getType().equals(p.getType()))
                 .findFirst()
                 .ifPresent(comboType::setValue);
+        
+        if (p.getPartner() == null) return;
+
+        comboPartner.getItems().stream()
+                .filter(t -> t.getPartner().equals(p.getPartner()))
+                .findFirst()
+                .ifPresent(comboPartner::setValue);
     }
 
     @FXML
     public void onSave() {
         try {
-            // Verifica se algum type foi selecionado
+            // TYPE
             TypeDTO selectedType = comboType.getValue();
             if (selectedType == null) {
                 showError("Select a type first.");
                 return;
             }
 
-            // Cria DTO do programa
+            // PARTNER
+            PartnerDTO selectedPartner = comboPartner.getValue();
+            if (selectedPartner == null) {
+                showError("Select a partner first.");
+                return;
+            }
+
+            // Criar DTO
             ProgramDTO dto = new ProgramDTO();
             dto.setNomeP(txtName.getText());
+            dto.setDescription(txtDescription.getText());
+            dto.setLocation(txtLocation.getText());
+            dto.setVagas(Integer.parseInt(txtVacancy.getText()));
             dto.setContact(Integer.parseInt(txtContact.getText()));
-            dto.setType(selectedType.getType()); // ou selectedType.getId() se a API espera ID
 
-            // Converte DTO em JSON
+            // enviar strings (igual ao backend)
+            dto.setType(selectedType.getType());
+            dto.setPartner(selectedPartner.getPartner());
+
+            // JSON
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(dto);
+            String result;
 
-            // Chama o POST na API
-            String result = api.post("/voluntariado/programs", json);
-
-            // Mostra resultado e fecha o form
+            if (editingId == null) {
+                // Criar novo programa
+                result = api.post("/programs", json);
+            } else {
+                // Editar programa existente
+                result = api.put("/programs/" + editingId, json);
+            }
+            
+            
             new Alert(Alert.AlertType.INFORMATION, result).showAndWait();
             txtName.getScene().getWindow().hide();
 
         } catch (NumberFormatException e) {
-            showError("Contact must be a number.");
+            showError("Vacancy and Contact must be numbers.");
         } catch (Exception e) {
             showError("Error: " + e.getMessage());
         }
     }
+
     private void showError(String msg) {
         new Alert(Alert.AlertType.ERROR, msg).showAndWait();
     }

@@ -6,9 +6,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class ApiService {
+//	private static final String BASE_URL = "http://localhost:8080/voluntariado";
 	private static final String BASE_URL = "http://localhost:8080/voluntariado";
-
-    private final HttpClient client = HttpClient.newHttpClient();
+	// FALTAVA
+	private final HttpClient client = HttpClient.newHttpClient();
 
     public String get(String path) {
         try {
@@ -16,12 +17,22 @@ public class ApiService {
                     .uri(URI.create(BASE_URL + path))
                     .GET()
                     .build();
+            
+            HttpResponse<String> response =
+                    client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            return client.send(request, HttpResponse.BodyHandlers.ofString()).body();
+            
+            if (response.statusCode() >= 400) {
+                return "ERROR (" + response.statusCode() + "): " + response.body();
+            }
+
+            return response.body();
 
         } catch (Exception e) {
-            return "ERROR: " + e.getMessage();
+            e.printStackTrace(); 
+            return "ERROR: " + e.getClass().getName() + " - " + e.getMessage();
         }
+
     }
 
     public String post(String path, String json) {
@@ -37,11 +48,52 @@ public class ApiService {
                     .POST(body)
                     .build();
 
-            return client.send(request, HttpResponse.BodyHandlers.ofString()).body();
+            HttpResponse<String> response =
+                    client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // 👇 AQUI ESTÁ A DIFERENÇA
+            if (response.statusCode() >= 400) {
+                return "ERROR (" + response.statusCode() + "): " + response.body();
+            }
+
+            return response.body();
 
         } catch (Exception e) {
-            return "ERROR: " + e.getMessage();
+            e.printStackTrace(); // 👈 FUNDAMENTAL
+            return "ERROR: " + e.getClass().getName() + " - " + e.getMessage();
         }
+
+    }
+
+    
+    public String put(String path, String json) {
+        try {
+            HttpRequest.BodyPublisher body =
+                    (json == null || json.isEmpty())
+                            ? HttpRequest.BodyPublishers.noBody()
+                            : HttpRequest.BodyPublishers.ofString(json);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(BASE_URL + path))
+                    .header("Content-Type", "application/json")
+                    .PUT(body)
+                    .build();
+
+            HttpResponse<String> response =
+                    client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            // 👇 AQUI ESTÁ A DIFERENÇA
+            if (response.statusCode() >= 400) {
+                return "ERROR (" + response.statusCode() + "): " + response.body();
+            }
+
+            return response.body();
+
+        } catch (Exception e) {
+            e.printStackTrace(); // 👈 FUNDAMENTAL
+            return "ERROR: " + e.getClass().getName() + " - " + e.getMessage();
+        }
+
     }
     
     public String delete(String path) {
@@ -55,7 +107,10 @@ public class ApiService {
             return body == null ? "" : body;
 
         } catch (Exception e) {
-            return "ERROR: " + e.getMessage();
+            e.printStackTrace(); // 👈 FUNDAMENTAL
+            return "ERROR: " + e.getClass().getName() + " - " + e.getMessage();
         }
+
     }
 }
+
