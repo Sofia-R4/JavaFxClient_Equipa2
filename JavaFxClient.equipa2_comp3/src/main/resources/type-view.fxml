@@ -16,7 +16,6 @@
             <Pane prefHeight="200.0" prefWidth="200.0" />
             <Button mnemonicParsing="false" onAction="#onRefresh" text="Refresh" />
             <Button mnemonicParsing="false" onAction="#onAddType" text="Add" />
-            <Button mnemonicParsing="false" onAction="#onEditType" text="Edit" />
          </children>
       </HBox>
       <TableView fx:id="tableTypes" prefHeight="200.0" prefWidth="200.0">
