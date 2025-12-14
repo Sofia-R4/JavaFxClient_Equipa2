@@ -5,6 +5,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -16,14 +19,24 @@
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
          <children>
-            <Label text="Programs" />
-            <Pane prefHeight="200.0" prefWidth="200.0" />
+            <Label style="-fx-font-weight: bold; -fx-font-size: 20;" text="Programs" />
+            <Pane prefHeight="100.0" prefWidth="333.0">
+               <children>
+                  <ImageView fitHeight="98.0" fitWidth="125.0" layoutX="104.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Imagens/PATINHAS.gif" />
+                     </image>
+                  </ImageView>
+               </children>
+               <effect>
+                  <ColorAdjust brightness="-0.09" contrast="0.04" hue="0.91" saturation="-0.3" />
+               </effect></Pane>
             <Button mnemonicParsing="false" onAction="#onRefresh" text="Refresh" />
             <Button mnemonicParsing="false" onAction="#onAddProgram" text="Add" />
             <Button mnemonicParsing="false" onAction="#onEditProgram" text="Edit" />
          </children>
       </HBox>
-      <TableView fx:id="tablePrograms" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tablePrograms" prefHeight="284.0" prefWidth="600.0">
         <columns>
           <TableColumn fx:id="idProg" prefWidth="36.666656494140625" text="ID" />
           <TableColumn fx:id="nameProg" prefWidth="82.0" text="Name" />

@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="lp.JavaFxClient.controllers.MainController"> 
+<BorderPane prefHeight="213.0" prefWidth="168.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lp.JavaFxClient.controllers.MainController"> 
  
     <!-- Top: Menu --> 
     <top> 
         <MenuBar> 
             <menus> 
-                <Menu text="File"> 
+                <Menu text="Exit"> 
                     <MenuItem onAction="#onExit" text="Exit" /> 
                 </Menu> 
                 <Menu text="View"> 
@@ -29,18 +29,18 @@
  
     <!-- Left: Sidebar --> 
     <left> 
-        <VBox prefHeight="187.0" prefWidth="87.0" spacing="10" style="-fx-padding: 10;"> 
-            <Label style="-fx-font-weight: bold;" text="Navigation" /> 
-            <Button maxWidth="Infinity" onAction="#showStudentsView" text="Students" /> 
-            <Button maxWidth="Infinity" onAction="#showProgramsView" text="Programs" />
-         <Button mnemonicParsing="false" onAction="#showPartnersView" text="Partners" /> 
-            <Button maxWidth="Infinity" onAction="#showTypesView" text="Types" /> 
+        <VBox prefHeight="187.0" prefWidth="114.0" spacing="10" style="-fx-padding: 10;"> 
+            <Label prefHeight="17.0" prefWidth="74.0" style="-fx-font-weight: bold;" text="Voluntariado" /> 
+            <Button maxWidth="Infinity" onAction="#showStudentsView" text="👤 Students" /> 
+            <Button maxWidth="Infinity" onAction="#showProgramsView" text="🐾 Programs" />
+         <Button mnemonicParsing="false" onAction="#showPartnersView" prefHeight="25.0" prefWidth="97.0" text="👥 Partners" /> 
+            <Button maxWidth="Infinity" onAction="#showTypesView" text="📄 Types" /> 
         </VBox> 
     </left> 
  
     <!-- Center: Content area to swap views --> 
     <center> 
-        <AnchorPane fx:id="contentPane" /> 
+        <AnchorPane fx:id="contentPane" prefHeight="188.0" prefWidth="61.0" /> 
     </center> 
  
 </BorderPane>
