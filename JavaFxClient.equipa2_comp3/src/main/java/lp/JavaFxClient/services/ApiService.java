@@ -6,9 +6,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class ApiService {
-//	private static final String BASE_URL = "http://localhost:8080/voluntariado";
 	private static final String BASE_URL = "http://localhost:8080/voluntariado";
-	// FALTAVA
 	private final HttpClient client = HttpClient.newHttpClient();
 
     public String get(String path) {
@@ -51,7 +49,6 @@ public class ApiService {
             HttpResponse<String> response =
                     client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            // 👇 AQUI ESTÁ A DIFERENÇA
             if (response.statusCode() >= 400) {
                 return "ERROR (" + response.statusCode() + "): " + response.body();
             }
@@ -59,7 +56,7 @@ public class ApiService {
             return response.body();
 
         } catch (Exception e) {
-            e.printStackTrace(); // 👈 FUNDAMENTAL
+            e.printStackTrace();
             return "ERROR: " + e.getClass().getName() + " - " + e.getMessage();
         }
 
@@ -82,7 +79,6 @@ public class ApiService {
             HttpResponse<String> response =
                     client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            // 👇 AQUI ESTÁ A DIFERENÇA
             if (response.statusCode() >= 400) {
                 return "ERROR (" + response.statusCode() + "): " + response.body();
             }
@@ -90,7 +86,7 @@ public class ApiService {
             return response.body();
 
         } catch (Exception e) {
-            e.printStackTrace(); // 👈 FUNDAMENTAL
+            e.printStackTrace();
             return "ERROR: " + e.getClass().getName() + " - " + e.getMessage();
         }
 
@@ -107,7 +103,7 @@ public class ApiService {
             return body == null ? "" : body;
 
         } catch (Exception e) {
-            e.printStackTrace(); // 👈 FUNDAMENTAL
+            e.printStackTrace();
             return "ERROR: " + e.getClass().getName() + " - " + e.getMessage();
         }
 
