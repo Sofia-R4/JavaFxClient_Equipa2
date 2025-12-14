@@ -1,22 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?> 
- 
-<?import javafx.scene.layout.*?> 
-<?import javafx.scene.control.*?> 
- 
-<BorderPane xmlns:fx="http://javafx.com/fxml" 
-            fx:controller="lp.JavaFxClient.controllers.MainController"> 
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="lp.JavaFxClient.controllers.MainController"> 
  
     <!-- Top: Menu --> 
     <top> 
         <MenuBar> 
             <menus> 
                 <Menu text="File"> 
-                    <MenuItem text="Exit" onAction="#onExit"/> 
+                    <MenuItem onAction="#onExit" text="Exit" /> 
                 </Menu> 
                 <Menu text="View"> 
-                    <MenuItem text="Students" onAction="#showStudentsView"/> 
-                    <MenuItem text="Programs" onAction="#showProgramsView"/> 
-                    <MenuItem text="Types" onAction="#showTypesView"/> 
+                    <MenuItem onAction="#showStudentsView" text="Students" /> 
+                    <MenuItem onAction="#showProgramsView" text="Programs" /> 
+                    <MenuItem onAction="#showTypesView" text="Types" /> 
                 </Menu> 
             </menus> 
         </MenuBar> 
@@ -24,17 +29,18 @@
  
     <!-- Left: Sidebar --> 
     <left> 
-        <VBox spacing="10" style="-fx-padding: 10;"> 
-            <Label text="Navigation" style="-fx-font-weight: bold;"/> 
-            <Button text="Students"    onAction="#showStudentsView"   maxWidth="Infinity"/> 
-            <Button text="Programs"     onAction="#showProgramsView"    maxWidth="Infinity"/> 
-            <Button text="Types" onAction="#showTypesView" maxWidth="Infinity"/> 
+        <VBox prefHeight="187.0" prefWidth="87.0" spacing="10" style="-fx-padding: 10;"> 
+            <Label style="-fx-font-weight: bold;" text="Navigation" /> 
+            <Button maxWidth="Infinity" onAction="#showStudentsView" text="Students" /> 
+            <Button maxWidth="Infinity" onAction="#showProgramsView" text="Programs" />
+         <Button mnemonicParsing="false" onAction="#showPartnersView" text="Partners" /> 
+            <Button maxWidth="Infinity" onAction="#showTypesView" text="Types" /> 
         </VBox> 
     </left> 
  
     <!-- Center: Content area to swap views --> 
     <center> 
-        <AnchorPane fx:id="contentPane"/> 
+        <AnchorPane fx:id="contentPane" /> 
     </center> 
  
 </BorderPane>

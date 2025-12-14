@@ -22,6 +22,10 @@ public class ProgramController {
     @FXML private TableColumn<ProgramDTO, String> nameProg;
     @FXML private TableColumn<ProgramDTO, String> typeProg;
     @FXML private TableColumn<ProgramDTO, Integer> contactProg;
+    @FXML private TableColumn<ProgramDTO, String> descriptionProg;
+    @FXML private TableColumn<ProgramDTO, String> partnerProg;
+    @FXML private TableColumn<ProgramDTO, Integer> vacancyProg;
+    @FXML private TableColumn<ProgramDTO, String> locationProg;
 
     private final ApiService api = new ApiService();
     private final ObjectMapper mapper = new ObjectMapper();
@@ -32,6 +36,10 @@ public class ProgramController {
         nameProg.setCellValueFactory(new PropertyValueFactory<>("nomeP"));
         typeProg.setCellValueFactory(new PropertyValueFactory<>("type"));
         contactProg.setCellValueFactory(new PropertyValueFactory<>("contact"));
+        descriptionProg.setCellValueFactory(new PropertyValueFactory<>("description"));
+        partnerProg.setCellValueFactory(new PropertyValueFactory<>("partner"));
+        vacancyProg.setCellValueFactory(new PropertyValueFactory<>("vagas"));
+        locationProg.setCellValueFactory(new PropertyValueFactory<>("location"));
 
         loadPrograms();
     }
@@ -43,7 +51,7 @@ public class ProgramController {
 
     private void loadPrograms() {
         try {
-            String json = api.get("/voluntariado/programs"); 
+            String json = api.get("/programs"); 
             if (json.startsWith("ERROR:")) {
                 showError(json);
                 return;
@@ -58,12 +66,12 @@ public class ProgramController {
         }
     }
     @FXML
-    public void onAdd() {
+    public void onAddProgram() {
         openProgramForm(null);
     }
 
     @FXML
-    public void onEdit() {
+    public void onEditProgram() {
         ProgramDTO selected = tablePrograms.getSelectionModel().getSelectedItem();
         if (selected == null) {
             showError("Select a program first.");
@@ -103,7 +111,5 @@ public class ProgramController {
         Alert a = new Alert(Alert.AlertType.INFORMATION, msg);
         a.setTitle(title);
         a.showAndWait();
-    }
-
-    
+    }    
 }

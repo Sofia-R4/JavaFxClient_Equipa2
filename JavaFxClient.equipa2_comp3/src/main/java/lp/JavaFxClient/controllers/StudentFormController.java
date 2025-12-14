@@ -12,8 +12,11 @@ import lp.JavaFxClient.services.ApiService;
 public class StudentFormController {
 	 
     @FXML private Label formTitle; 
-    @FXML private TextField txtName; 
-    @FXML private TextField txtEmail; 
+    @FXML private TextField txtName;
+    @FXML private TextField txtEmail;
+    @FXML private TextField txtNum;
+    @FXML private TextField txtPass; 
+ 
  
     private final ApiService api = new ApiService(); 
     private Long editingId = null; 
@@ -31,6 +34,8 @@ public class StudentFormController {
             StudentDTO dto = new StudentDTO(); 
             dto.setName(txtName.getText()); 
             dto.setEmail(txtEmail.getText());
+            dto.setNum(Integer.parseInt(txtNum.getText())); // agora envia num
+            dto.setPassword(txtPass.getText());
 
             // Converter DTO para JSON
             ObjectMapper mapper = new ObjectMapper();

@@ -33,13 +33,28 @@ public class TypesController {
 
     private void loadTypes() {
         try {
-            String json = api.get("/voluntariado/types");
-            List<TypeDTO> list = mapper.readValue(json, new TypeReference<List<TypeDTO>>() {});
+            String json = api.get("/types");
+
+            System.out.println("Resposta REAL do backend:");
+            System.out.println(json);
+
+            if (!json.trim().startsWith("[")) {
+                showError("API returned error:\n" + json);
+                return;
+            }
+
+            List<TypeDTO> list = mapper.readValue(
+                    json,
+                    new TypeReference<List<TypeDTO>>() {}
+            );
+
             tableTypes.getItems().setAll(list);
+
         } catch (Exception e) {
             showError("Error loading types: " + e.getMessage());
         }
     }
+
 
     @FXML
     public void onRefresh() {
@@ -47,12 +62,12 @@ public class TypesController {
     }
 
     @FXML
-    public void onAdd() {
+    public void onAddType() {
         openForm(null);
     }
 
     @FXML
-    public void onEdit() {
+    public void onEditType() {
         TypeDTO t = tableTypes.getSelectionModel().getSelectedItem();
         if (t == null) {
             showError("Select a type first.");
@@ -74,7 +89,7 @@ public class TypesController {
         confirm.showAndWait();
         if (confirm.getResult() != ButtonType.YES) return;
 
-        String result = api.delete("/voluntariado/types/" + t.getId());
+        String result = api.delete("/types/" + t.getId());
         new Alert(Alert.AlertType.INFORMATION, result).showAndWait();
         loadTypes();
     }

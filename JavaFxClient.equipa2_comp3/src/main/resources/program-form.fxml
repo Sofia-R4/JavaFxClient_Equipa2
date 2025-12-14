@@ -14,19 +14,38 @@
    </padding>
    <children>
       <Label text="Create Program" />
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
          <children>
             <Label text="Name:" />
             <TextField fx:id="txtName" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+         <children>
+            <Label text="Description:" />
+            <TextField fx:id="txtDescription" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+         <children>
+            <Label text="Location:" />
+            <TextField fx:id="txtLocation" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+         <children>
+            <Label text="Vacancy:" />
+            <TextField fx:id="txtVacancy" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
          <children>
             <Label text="Conctact:" />
             <TextField fx:id="txtContact" />
          </children>
       </HBox>
       <ComboBox fx:id="comboType" prefWidth="150.0" promptText="Type" />
+      <ComboBox fx:id="comboPartner" prefWidth="150.0" promptText="Partner" />
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
          <children>
             <Button fx:id="btnSave" mnemonicParsing="false" onAction="#onSave" text="Save" />

@@ -24,17 +24,18 @@ public class TypeFormController {
     @FXML
     public void onSave() {
         try {
-            // Cria DTO do type
             TypeDTO dto = new TypeDTO();
             dto.setType(txtType.getText());
 
-            // Converte DTO em JSON
             String json = mapper.writeValueAsString(dto);
 
-            // Chama o POST na API para criar novo type
-            String result = api.post("/voluntariado/types", json);
+            String result;
+            if (editingId == null) {
+                result = api.post("/types", json); // BASE_URL já tem /voluntariado
+            } else {
+                result = api.put("/types/by-name/" + editingId, json);
+            }
 
-            // Mostra resultado e fecha o form
             new Alert(Alert.AlertType.INFORMATION, result).showAndWait();
             txtType.getScene().getWindow().hide();
 
@@ -43,9 +44,9 @@ public class TypeFormController {
         }
     }
 
+
     @FXML
     public void onCancel() {
         txtType.getScene().getWindow().hide();
     }
 }
-
