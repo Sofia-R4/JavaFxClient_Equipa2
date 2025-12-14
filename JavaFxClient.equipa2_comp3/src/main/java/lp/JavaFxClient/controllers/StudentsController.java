@@ -87,7 +87,7 @@ public class StudentsController {
 			showError("Select a student first.");
 			return;
 		}
-		showInfo("TODO", "Abrir formulário para editar student: " + selected.getName());
+		showInfo("TODO", "Open form to edit student: " + selected.getName());
 	}
 
 	private void showError(String msg) {

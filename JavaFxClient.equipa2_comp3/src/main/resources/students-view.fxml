@@ -30,5 +30,4 @@
          <TableColumn fx:id="numCol" prefWidth="75.0" text="Numero de aluno" />
         </columns>
     </TableView>
-
 </VBox>

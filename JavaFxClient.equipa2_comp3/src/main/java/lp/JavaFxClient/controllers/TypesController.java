@@ -34,8 +34,6 @@ public class TypesController {
     private void loadTypes() {
         try {
             String json = api.get("/types");
-
-            System.out.println("Resposta REAL do backend:");
             System.out.println(json);
 
             if (!json.trim().startsWith("[")) {
