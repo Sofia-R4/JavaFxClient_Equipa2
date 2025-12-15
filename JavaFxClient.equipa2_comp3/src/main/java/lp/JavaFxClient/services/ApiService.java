@@ -108,7 +108,7 @@ public class ApiService {
         }
 
     }
-    
+    //metodo de login a partir dum endpoint e devolve 200 ou erro
     public static boolean login(String name, String password) {
 
         try {
