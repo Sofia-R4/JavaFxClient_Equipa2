@@ -19,12 +19,10 @@
         <Pane HBox.hgrow="ALWAYS" />
         <Button onAction="#onRefresh" text="Refresh" />
         <Button onAction="#onAddStudent" text="Add" />
-        <Button onAction="#onEditStudent" text="Edit" />
     </HBox>
 
     <TableView fx:id="studentsTable" prefHeight="400">
         <columns>
-            <TableColumn fx:id="idCol" prefWidth="60" text="ID" />
             <TableColumn fx:id="nameCol" prefWidth="150" text="Name" />
             <TableColumn fx:id="emailCol" prefWidth="200" text="Email" />
          <TableColumn fx:id="numCol" prefWidth="75.0" text="Numero de aluno" />
