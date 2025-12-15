@@ -9,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import lp.JavaFxClient.services.ApiService;
 
 public class LoginController {
 		 
@@ -18,20 +19,23 @@ public class LoginController {
 	    @FXML 
 	    private PasswordField txtPass; 
 	 
-	    @FXML 
-	    private void onLogin() { 
-	        String user = txtUser.getText(); 
-	        String pass = txtPass.getText(); 
-	 
-	        if (user.equals("Francisca") && pass.equals("francisca123")) { 
-	            openMain(); 
-	        } else { 
-	            Alert alert = new Alert(Alert.AlertType.ERROR); 
-	            alert.setHeaderText("Invalid Login"); 
-	            alert.setContentText("try Again!"); 
-	            alert.show(); 
-	        } 
-	    } 
+	    @FXML
+	    private void onLogin() {
+	        String username = txtUser.getText();
+	        String password = txtPass.getText();
+
+	        // Chamada ao backend
+	        boolean success = ApiService.login(username, password);
+
+	        if (success) {
+	            openMain();
+	        } else {
+	            Alert alert = new Alert(Alert.AlertType.ERROR);
+	            alert.setHeaderText("Invalid Login");
+	            alert.setContentText("Username or password is incorrect. Try again!");
+	            alert.show();
+	        }
+	    }
 	 
 	    private void openMain() { 
 	        try { 

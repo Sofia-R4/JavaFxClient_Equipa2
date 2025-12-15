@@ -108,5 +108,33 @@ public class ApiService {
         }
 
     }
+    //metodo de login a partir dum endpoint e devolve 200 ou erro
+    public static boolean login(String name, String password) {
+
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+
+            String json = """
+                {
+                    "name": "%s",
+                    "password": "%s"
+                }
+                """.formatted(name, password);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(BASE_URL + "/users/login"))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(json))
+                    .build();
+
+            HttpResponse<Void> response = client.send(request, HttpResponse.BodyHandlers.discarding());
+
+            return response.statusCode() == 200;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
 
