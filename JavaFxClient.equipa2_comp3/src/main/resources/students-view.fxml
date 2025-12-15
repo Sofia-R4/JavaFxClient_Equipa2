@@ -7,11 +7,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox spacing="10" style="-fx-padding: 10;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="lp.JavaFxClient.controllers.StudentsController">
+<VBox spacing="10" style="-fx-padding: 10;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lp.JavaFxClient.controllers.StudentsController">
 
     <HBox spacing="10">
-        <Label style="-fx-font-size: 16; -fx-font-weight: bold;" text="Students" />
+        <Label prefHeight="31.0" prefWidth="77.0" style="-fx-font-size: 16; -fx-font-weight: bold;" text="Students">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
         <Pane HBox.hgrow="ALWAYS" />
         <Button onAction="#onRefresh" text="Refresh" />
         <Button onAction="#onAddStudent" text="Add" />
