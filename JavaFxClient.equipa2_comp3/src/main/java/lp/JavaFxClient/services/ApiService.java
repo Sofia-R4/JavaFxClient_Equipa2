@@ -109,17 +109,17 @@ public class ApiService {
 
     }
     //metodo de login a partir dum endpoint e devolve 200 ou erro
-    public static boolean login(String name, String password) {
+    public static boolean login(String email, String password) {
 
         try {
             HttpClient client = HttpClient.newHttpClient();
 
             String json = """
                 {
-                    "name": "%s",
+                    "email": "%s",
                     "password": "%s"
                 }
-                """.formatted(name, password);
+                """.formatted(email, password);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(BASE_URL + "/users/login"))
