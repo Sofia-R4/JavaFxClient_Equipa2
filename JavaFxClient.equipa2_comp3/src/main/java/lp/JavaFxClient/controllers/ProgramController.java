@@ -31,7 +31,7 @@ public class ProgramController {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @FXML
-    public void initialize() {
+    public void initialize() { //aparece nas colunas
         idProg.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameProg.setCellValueFactory(new PropertyValueFactory<>("nomeP"));
         typeProg.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -51,15 +51,15 @@ public class ProgramController {
 
     private void loadPrograms() {
         try {
-            String json = api.get("/programs"); 
-            if (json.startsWith("ERROR:")) {
-                showError(json);
+            String json = api.get("/programs");  //get à api
+            if (json.startsWith("ERROR:")) { //verifica se a API devolveu uma mensagem de erro
+                showError(json); //mostra a sms de erro 
                 return;
             }
 
-            List<ProgramDTO> programs =
+            List<ProgramDTO> programs = //conversão de JSON para objetos Java
                     mapper.readValue(json, new TypeReference<List<ProgramDTO>>() {});
-            tablePrograms.getItems().setAll(programs);
+            tablePrograms.getItems().setAll(programs); //a tabela atualiza automaticamente
 
         } catch (Exception e) {
             showError("Error loading programs: " + e.getMessage());
@@ -67,35 +67,35 @@ public class ProgramController {
     }
     @FXML
     public void onAddProgram() {
-        openProgramForm(null);
+        openProgramForm(null); //abre um formulário em criação (sem nada, null)
     }
 
     @FXML
     public void onEditProgram() {
-        ProgramDTO selected = tablePrograms.getSelectionModel().getSelectedItem();
-        if (selected == null) {
-            showError("Select a program first.");
+        ProgramDTO selected = tablePrograms.getSelectionModel().getSelectedItem(); //acede ao SelectionModel da tabela e obtem o item atualmente selecionado
+        if (selected == null) { //se nao for selecionado nada
+            showError("Select a program first."); //retorna
             return;
         }
-        openProgramForm(selected);
+        openProgramForm(selected); //se não abre o formulário
     }
 
     private void openProgramForm(ProgramDTO program) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/program-form.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/program-form.fxml")); //carrega o ficheiro do FXML do formulário
             Parent root = loader.load();
 
-            ProgramFormController controller = loader.getController();
-            if (program != null)
-                controller.loadProgram(program);
+            ProgramFormController controller = loader.getController(); //obtenho o controller do form (buscar métodos)
+            if (program != null) //se o parceiro não estiver vazio, 
+                controller.loadProgram(program); //guarda os dados inseridos
 
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(root));
-            stage.setTitle(program == null ? "Add Program" : "Edit Program");
-            stage.showAndWait();
+            Stage stage = new Stage(); //cria uma nova janela
+            stage.initModality(Modality.APPLICATION_MODAL); //define a janela como Modal (nao se pode interagir)
+            stage.setScene(new Scene(root)); //associa a interface carregada à nova janela
+            stage.setTitle(program == null ? "Add Program" : "Edit Program"); //se partner=nul, adiciona, se não edita
+            stage.showAndWait(); // nao bloqueia e espera até a janela fechar
 
-            loadPrograms();
+            loadPrograms(); //atualiza os dados
 
         } catch (Exception e) {
             showError("Cannot open form: " + e.getMessage());
@@ -108,8 +108,8 @@ public class ProgramController {
     }
 
     private void showInfo(String title, String msg) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION, msg);
-        a.setTitle(title);
-        a.showAndWait();
+        Alert a = new Alert(Alert.AlertType.INFORMATION, msg); //cria um alerta
+        a.setTitle(title); //define o titulo da janela
+        a.showAndWait(); //nao bloqueia e espera até a janela fechar
     }    
 }

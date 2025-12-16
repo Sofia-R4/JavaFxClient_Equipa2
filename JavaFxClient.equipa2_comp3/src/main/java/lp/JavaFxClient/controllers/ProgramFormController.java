@@ -35,10 +35,10 @@ public class ProgramFormController {
 
     private void loadTypes() {
         try {
-            String json = api.get("/types");
-            List<TypeDTO> list =
+            String json = api.get("/types"); //get à api
+            List<TypeDTO> list = //converte JSON em objetos Java
                     mapper.readValue(json, new TypeReference<List<TypeDTO>>() {});
-            comboType.getItems().setAll(list);
+            comboType.getItems().setAll(list); //obtém a lista na comboBox
 
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, "Error loading types: " + e.getMessage()).showAndWait();
@@ -61,43 +61,43 @@ public class ProgramFormController {
 
     /** Fill form fields when editing */
     public void loadProgram(ProgramDTO p) {
-        editingId = p.getId();
-        txtName.setText(p.getNomeP());
-        txtContact.setText(String.valueOf(p.getContact()));
+        editingId = p.getId(); //guarda o id do programa
+        txtName.setText(p.getNomeP()); //pega o nome e define como valor existente
+        txtContact.setText(String.valueOf(p.getContact())); //pega o contacto e define como valor existente
 
-        if (p.getType() == null) return;
+        if (p.getType() == null) return; //se o programa nao tiver tipo, para
 
-        comboType.getItems().stream()
-                .filter(t -> t.getType().equals(p.getType()))
-                .findFirst()
-                .ifPresent(comboType::setValue);
+        comboType.getItems().stream() //percorre os itens do comboType
+                .filter(t -> t.getType().equals(p.getType())) //filtra o item que tem o mesmo tipo que o programa
+                .findFirst() //pega o primeiro
+                .ifPresent(comboType::setValue); //define esse item como selecionado na combo
         
-        if (p.getPartner() == null) return;
+        if (p.getPartner() == null) return; //se o programa nao tiver parceiro, para
 
-        comboPartner.getItems().stream()
-                .filter(t -> t.getPartner().equals(p.getPartner()))
-                .findFirst()
-                .ifPresent(comboPartner::setValue);
+        comboPartner.getItems().stream() //percorre os itens do comboPartner
+                .filter(t -> t.getPartner().equals(p.getPartner())) //filtra o item que tem o mesmo partner que o programa
+                .findFirst() //pega o primeiro
+                .ifPresent(comboPartner::setValue); //define esse item como selecionado na combo
     }
 
     @FXML
     public void onSave() {
         try {
             // TYPE
-            TypeDTO selectedType = comboType.getValue();
-            if (selectedType == null) {
-                showError("Select a type first.");
+            TypeDTO selectedType = comboType.getValue(); //obtem o tipo selecionado na combo
+            if (selectedType == null) { //se nenhum estiver selecionado
+                showError("Select a type first."); //interrompe
                 return;
             }
 
             // PARTNER
-            PartnerDTO selectedPartner = comboPartner.getValue();
-            if (selectedPartner == null) {
-                showError("Select a partner first.");
+            PartnerDTO selectedPartner = comboPartner.getValue(); //obtem o partner selecionado na combo
+            if (selectedPartner == null) { //se nenhum estiver selecionado
+                showError("Select a partner first."); //interrompe
                 return;
             }
 
-            // Criar DTO
+            // Criar DTO para enviar à API
             ProgramDTO dto = new ProgramDTO();
             dto.setNomeP(txtName.getText());
             dto.setDescription(txtDescription.getText());
@@ -105,11 +105,11 @@ public class ProgramFormController {
             dto.setVagas(Integer.parseInt(txtVacancy.getText()));
             dto.setContact(Integer.parseInt(txtContact.getText()));
 
-            // enviar strings (igual ao backend)
+            // converte em strings (igual ao backend)
             dto.setType(selectedType.getType());
             dto.setPartner(selectedPartner.getPartner());
 
-            // JSON
+            // converte o ProgramDTO em JSON
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(dto);
             String result;
@@ -123,10 +123,10 @@ public class ProgramFormController {
             }
             
             
-            new Alert(Alert.AlertType.INFORMATION, result).showAndWait();
-            txtName.getScene().getWindow().hide();
+            new Alert(Alert.AlertType.INFORMATION, result).showAndWait(); //mostra a mensagem da API
+            txtName.getScene().getWindow().hide(); //fecha após guardar
 
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException e) { //utilizou texto em vez de numeros
             showError("Vacancy and Contact must be numbers.");
         } catch (Exception e) {
             showError("Error: " + e.getMessage());
