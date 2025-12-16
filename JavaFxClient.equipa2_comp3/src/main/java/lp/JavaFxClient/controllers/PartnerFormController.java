@@ -17,27 +17,27 @@ public class PartnerFormController {
 
     /** Preenche o formulário ao editar */
     public void loadPartner(PartnerDTO p) {
-        editingId = p.getId();
-        txtPartner.setText(p.getPartner());
+        editingId = p.getId(); //chama o método getId e guarda em editingId
+        txtPartner.setText(p.getPartner()); //nome que define o texto de campo do formulário
     }
 
     @FXML
     public void onSave() {
         try {
-            PartnerDTO dto = new PartnerDTO();
-            dto.setPartner(txtPartner.getText());
+            PartnerDTO dto = new PartnerDTO(); //crio um novo objeto DTO que é enviado para a API
+            dto.setPartner(txtPartner.getText()); //copia os dados da interface para o objeto java
 
-            String json = mapper.writeValueAsString(dto);
+            String json = mapper.writeValueAsString(dto); //converte DTO em JSON
 
             String result;
-            if (editingId == null) {
-                result = api.post("/partners", json);
+            if (editingId == null) { //se for =null
+                result = api.post("/partners", json); //cria um novo
             } else {
-                result = api.put("/partners/by-name/" + editingId, json);
+                result = api.put("/partners/by-name/" + editingId, json); //atualiza
             }
 
-            new Alert(Alert.AlertType.INFORMATION, result).showAndWait();
-            txtPartner.getScene().getWindow().hide();
+            new Alert(Alert.AlertType.INFORMATION, result).showAndWait(); //cria uma alerta e mostra a mensagem devolvida pela API
+            txtPartner.getScene().getWindow().hide(); //o fomrulário fecha depois de ser salvo
 
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage()).showAndWait();

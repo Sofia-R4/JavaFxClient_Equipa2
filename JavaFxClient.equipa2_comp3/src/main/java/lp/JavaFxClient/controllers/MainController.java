@@ -43,14 +43,14 @@ public class MainController {
 
     private void loadView(String fxmlPath) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath)); //localiza o arquivo FXML    dinâmico, carrega várias telas
             Node view = loader.load();
 
-            contentPane.getChildren().setAll(view);
-            AnchorPane.setTopAnchor(view, 0.0);
-            AnchorPane.setRightAnchor(view, 0.0);
-            AnchorPane.setBottomAnchor(view, 0.0);
-            AnchorPane.setLeftAnchor(view, 0.0);
+            contentPane.getChildren().setAll(view); //substitui a atual pela nova janela 
+            AnchorPane.setTopAnchor(view, 0.0); //topo
+            AnchorPane.setRightAnchor(view, 0.0); //direita
+            AnchorPane.setBottomAnchor(view, 0.0); //baixo
+            AnchorPane.setLeftAnchor(view, 0.0); //esquerda
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +61,7 @@ public class MainController {
 
     @FXML
     public void onExit() {
-        Stage stage = (Stage) contentPane.getScene().getWindow();
+        Stage stage = (Stage) contentPane.getScene().getWindow(); //pega na janela atual
         stage.close();
     }
 }

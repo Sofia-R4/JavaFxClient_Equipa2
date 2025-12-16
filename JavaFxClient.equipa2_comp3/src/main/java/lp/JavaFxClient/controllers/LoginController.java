@@ -21,18 +21,18 @@ public class LoginController {
 	 
 	    @FXML
 	    private void onLogin() {
-	        String username = txtUser.getText();
+	        String email = txtUser.getText();
 	        String password = txtPass.getText();
 
 	        // Chamada ao backend
-	        boolean success = ApiService.login(username, password);
+	        boolean success = ApiService.login(email, password);
 
 	        if (success) {
 	            openMain();
 	        } else {
 	            Alert alert = new Alert(Alert.AlertType.ERROR);
 	            alert.setHeaderText("Invalid Login");
-	            alert.setContentText("Username or password is incorrect. Try again!");
+	            alert.setContentText("Email or password is incorrect. Try again!");
 	            alert.show();
 	        }
 	    }
@@ -40,18 +40,15 @@ public class LoginController {
 	    private void openMain() { 
 	        try { 
 	            FXMLLoader loader = new 
-	FXMLLoader(getClass().getResource("/main-view.fxml")); 
-	            Parent root = loader.load(); 
+	FXMLLoader(getClass().getResource("/main-view.fxml")); //procura o arquivo FXML
+	            Parent root = loader.load();  //carrega no objeto Parent, root é o nó principal
 	 
-	            Stage stage = new Stage(); 
+	            Stage stage = new Stage(); //cria uma nova janela
 	            stage.setTitle("Main Menu"); 
-	            stage.setScene(new Scene(root)); 
+	            stage.setScene(new Scene(root)); //cria uma cena usando o layout de root
 	            stage.show(); 
 	 
-	            // Fechar janela de login 
-	            Stage janelaLogin = (Stage) txtUser.getScene().getWindow(); 
-	            janelaLogin.close(); 
-	 
+	            
 	        } catch (Exception e) { 
 	            e.printStackTrace(); 
 	        } 

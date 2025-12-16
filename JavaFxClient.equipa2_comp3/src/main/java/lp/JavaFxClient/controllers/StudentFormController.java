@@ -22,30 +22,31 @@ public class StudentFormController {
     private Long editingId = null; 
  
     public void loadStudent(StudentDTO s) { 
-        editingId = s.getId(); 
+        editingId = s.getId();  //guarda o id do estudante
         formTitle.setText("Edit Student"); 
-        txtName.setText(s.getName()); 
-        txtEmail.setText(s.getEmail());
+        txtName.setText(s.getName());  //pega o nome e define
+        txtEmail.setText(s.getEmail()); //pega o email e define
     } 
  
     @FXML
     public void onSave() { 
         try { 
+        	// Criar DTO para enviar à API
             StudentDTO dto = new StudentDTO(); 
             dto.setName(txtName.getText()); 
             dto.setEmail(txtEmail.getText());
             dto.setNum(Integer.parseInt(txtNum.getText())); // agora envia num
             dto.setPassword(txtPass.getText());
 
-            // Converter DTO para JSON
+            // converte o ProgramDTO em JSON
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(dto);
 
             // Chamar o POST no ApiService
             String result = api.post("/students/criar/student", json);
 
-            new Alert(Alert.AlertType.INFORMATION, result).showAndWait(); 
-            txtName.getScene().getWindow().hide(); 
+            new Alert(Alert.AlertType.INFORMATION, result).showAndWait(); //mostra a mensagem na API
+            txtName.getScene().getWindow().hide();  //fecha após guardar
 
         } catch (Exception e) { 
             new Alert(Alert.AlertType.ERROR, "Error: " + e.getMessage()).showAndWait(); 

@@ -9,17 +9,17 @@ import javafx.stage.Stage;
 public class App extends Application {
 
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
-        Scene scene = new Scene(loader.load());
+    @Override  //subescrever um método de Application
+    public void start(Stage stage) throws Exception { //stage janela principal da app e throws permite lançar exceções
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml")); //criar FXMLLoader responsável por carregar interfaces
+        Scene scene = new Scene(loader.load()); //carrega o conteúdo e mostra (scene)
 
-        stage.setTitle("Voluntariado");
-        stage.setScene(scene);
+        stage.setTitle("Voluntariado"); //titulo da janela
+        stage.setScene(scene); //associa a scene criada à stage
 
-        // Set preferred window size
-        stage.setWidth(500);   // or 600, 800, whatever you prefer
-        stage.setHeight(400);  // optional
+        
+        stage.setWidth(500);   
+        stage.setHeight(400);  
 
         stage.show();
     }

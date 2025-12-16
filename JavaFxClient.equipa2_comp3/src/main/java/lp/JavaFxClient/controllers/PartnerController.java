@@ -26,9 +26,9 @@ public class PartnerController {
 
     @FXML
     public void initialize() {
-        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        partnerCol.setCellValueFactory(new PropertyValueFactory<>("partner"));
-        loadPartners();
+        idCol.setCellValueFactory(new PropertyValueFactory<>("id")); //aparece o dado "id" na coluna
+        partnerCol.setCellValueFactory(new PropertyValueFactory<>("partner")); //aparece o dado "partner" na coluna
+        loadPartners(); //chama o método 
     }
 
     @FXML
@@ -38,10 +38,10 @@ public class PartnerController {
 
     private void loadPartners() {
         try {
-            String json = api.get("/partners");
-            List<PartnerDTO> partners =
+            String json = api.get("/partners"); //get à api
+            List<PartnerDTO> partners =  //conversão de JSON para objetos Java
                     mapper.readValue(json, new TypeReference<List<PartnerDTO>>() {});
-            tablePartners.getItems().setAll(partners);
+            tablePartners.getItems().setAll(partners); //a tabela atualiza automaticamente
 
         } catch (Exception e) {
             showError("Error loading partners: " + e.getMessage());
@@ -50,35 +50,35 @@ public class PartnerController {
 
     @FXML
     public void onAddPartner() {
-        openPartnerForm(null);
+        openPartnerForm(null); //abre um formulário em criação (sem nada, null)
     }
 
     @FXML
     public void onEditPartner() {
-        PartnerDTO selected = tablePartners.getSelectionModel().getSelectedItem();
-        if (selected == null) {
-            showError("Select a partner first.");
+        PartnerDTO selected = tablePartners.getSelectionModel().getSelectedItem(); //acede ao SelectionModel da tabela e obtem o item atualmente selecionado
+        if (selected == null) { //se nao for selecionado nada
+            showError("Select a partner first."); //retorna
             return;
         }
-        openPartnerForm(selected);
+        openPartnerForm(selected); //se não abre o formulário
     }
 
     private void openPartnerForm(PartnerDTO partner) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/partner-form.fxml"));
-            Parent root = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/partner-form.fxml")); //carrega o ficheiro do FXML do formulário
+            Parent root = loader.load(); //c
 
-            PartnerFormController controller = loader.getController();
-            if (partner != null)
-                controller.loadPartner(partner);
+            PartnerFormController controller = loader.getController(); //obtenho o controller do form (buscar métodos)
+            if (partner != null) //se o parceiro não estiver vazio, 
+                controller.loadPartner(partner); //guarda os dados inseridos
 
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(root));
-            stage.setTitle(partner == null ? "Add Partner" : "Edit Partner");
-            stage.showAndWait();
+            Stage stage = new Stage(); //cria uma nova janela
+            stage.initModality(Modality.APPLICATION_MODAL); //define a janela como Modal (nao se pode interagir)
+            stage.setScene(new Scene(root)); //associa a interface carregada à nova janela
+            stage.setTitle(partner == null ? "Add Partner" : "Edit Partner"); //se partner=nul, adiciona, se não edita
+            stage.showAndWait(); // nao bloqueia e espera até a janela fechar
 
-            loadPartners();
+            loadPartners(); //atualiza os dados
 
         } catch (Exception e) {
             showError("Cannot open partner form: " + e.getMessage());
