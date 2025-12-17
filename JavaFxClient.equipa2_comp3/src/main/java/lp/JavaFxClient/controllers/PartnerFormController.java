@@ -15,8 +15,8 @@ public class PartnerFormController {
     private final ObjectMapper mapper = new ObjectMapper();
     private Long editingId = null;
 
-    /** Preenche o formulário ao editar */
-    public void loadPartner(PartnerDTO p) {
+    
+    public void loadPartner(PartnerDTO p) { //carrega os partners
         editingId = p.getId(); //chama o método getId e guarda em editingId
         txtPartner.setText(p.getPartner()); //nome que define o texto de campo do formulário
     }

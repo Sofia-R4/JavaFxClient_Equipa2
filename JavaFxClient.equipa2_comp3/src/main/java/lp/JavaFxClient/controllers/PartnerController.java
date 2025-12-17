@@ -55,7 +55,8 @@ public class PartnerController {
 
     @FXML
     public void onEditPartner() {
-        PartnerDTO selected = tablePartners.getSelectionModel().getSelectedItem(); //acede ao SelectionModel da tabela e obtem o item atualmente selecionado
+    	//acede ao SelectionModel da tabela e obtem o item atualmente selecionado
+        PartnerDTO selected = tablePartners.getSelectionModel().getSelectedItem(); 
         if (selected == null) { //se nao for selecionado nada
             showError("Select a partner first."); //retorna
             return;
@@ -66,7 +67,7 @@ public class PartnerController {
     private void openPartnerForm(PartnerDTO partner) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/partner-form.fxml")); //carrega o ficheiro do FXML do formulário
-            Parent root = loader.load(); //c
+            Parent root = loader.load(); //classe base do javaFX, nó da raiz, lê o arquivo e cria as comp gráficas 
 
             PartnerFormController controller = loader.getController(); //obtenho o controller do form (buscar métodos)
             if (partner != null) //se o parceiro não estiver vazio, 
