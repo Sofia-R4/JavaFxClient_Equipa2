@@ -33,11 +33,12 @@ public class StudentsController {
 
 	@FXML
 	public void initialize() {
+		//aparece nas colunas
 	    numCol.setCellValueFactory(new PropertyValueFactory<>("num"));
 	    nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 	    emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-	    loadStudents();
+	    loadStudents(); //chama o método 
 	}
 
 	@FXML
@@ -47,9 +48,9 @@ public class StudentsController {
 
 	private void loadStudents() {
 	    try {
-	        String json = api.get("/students"); // backend retorna StudentResponseDTO
+	        String json = api.get("/students"); // backend retorna StudentResponseDTO, faz get à api
 	        List<StudentDTO> students = mapper.readValue(json, new TypeReference<List<StudentDTO>>() {});
-	        studentsTable.getItems().setAll(students);
+	        studentsTable.getItems().setAll(students); //conversão de json para objetos java
 	    } catch (Exception e) {
 	        showError("Error loading students: " + e.getMessage());
 	    }
@@ -62,14 +63,14 @@ public class StudentsController {
 		// showInfo("TODO", "Abrir formulário para criar student (student-form.fxml).");
 
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/student-form.fxml"));
-			Parent root = loader.load();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/student-form.fxml")); //carrega o ficheiro do FXML do formulário
+			Parent root = loader.load(); //classe base do javaFX, nó da raiz, lê o arquivo e cria as comp gráficas 
 
-			Stage stage = new Stage();
+			Stage stage = new Stage(); //cria uma nova janela
 			stage.setTitle("Create Student");
-			stage.setScene(new Scene(root));
-			stage.initModality(Modality.APPLICATION_MODAL);
-			stage.showAndWait();
+			stage.setScene(new Scene(root)); //associa a interface carregada à nova janela
+			stage.initModality(Modality.APPLICATION_MODAL); //define a janela como Modal (nao se pode interagir)
+			stage.showAndWait(); // nao bloqueia e espera até a janela fechar
 
 			loadStudents(); // refresca tabela após fechar
 
@@ -82,8 +83,9 @@ public class StudentsController {
 
 	@FXML
 	public void onEditStudent() {
-		StudentDTO selected = studentsTable.getSelectionModel().getSelectedItem();
-		if (selected == null) {
+		//acede ao SelectionModel da tabela e obtem o item atualmente selecionado
+		StudentDTO selected = studentsTable.getSelectionModel().getSelectedItem(); 
+		if (selected == null) { //se nao for selecionado nada
 			showError("Select a student first.");
 			return;
 		}
@@ -96,8 +98,8 @@ public class StudentsController {
 	}
 
 	private void showInfo(String title, String msg) {
-		Alert a = new Alert(Alert.AlertType.INFORMATION, msg);
-		a.setTitle(title);
-		a.showAndWait();
+		Alert a = new Alert(Alert.AlertType.INFORMATION, msg); //cria um alerta
+		a.setTitle(title); //define o titulo da janela
+		a.showAndWait();  //nao bloqueia e espera até a janela fechar
 	}
 }

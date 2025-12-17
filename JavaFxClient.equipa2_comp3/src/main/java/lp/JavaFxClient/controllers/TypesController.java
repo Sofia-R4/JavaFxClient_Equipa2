@@ -26,27 +26,18 @@ public class TypesController {
 
     @FXML
     public void initialize() {
-        idType.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameType.setCellValueFactory(new PropertyValueFactory<>("type"));
-        loadTypes();
+        idType.setCellValueFactory(new PropertyValueFactory<>("id")); //aparece o dado "id" na coluna
+        nameType.setCellValueFactory(new PropertyValueFactory<>("type")); //aparece o dado "partner" na coluna
+        loadTypes(); //chama o método 
     }
 
     private void loadTypes() {
         try {
-            String json = api.get("/types");
-            System.out.println(json);
+            String json = api.get("/types"); //get à api
 
-            if (!json.trim().startsWith("[")) {
-                showError("API returned error:\n" + json);
-                return;
-            }
-
-            List<TypeDTO> list = mapper.readValue(
-                    json,
-                    new TypeReference<List<TypeDTO>>() {}
-            );
-
-            tableTypes.getItems().setAll(list);
+            List<TypeDTO> list =  //conversão de JSON para objetos Java
+            		mapper.readValue(json, new TypeReference<List<TypeDTO>>() {});
+            tableTypes.getItems().setAll(list); //a tabela atualiza
 
         } catch (Exception e) {
             showError("Error loading types: " + e.getMessage());
@@ -61,52 +52,37 @@ public class TypesController {
 
     @FXML
     public void onAddType() {
-        openForm(null);
+        openForm(null); //abre um formulário em criação (sem nada, null)
     }
 
     @FXML
     public void onEditType() {
+    	//acede ao SelectionModel da tabela e obtem o item atualmente selecionado
         TypeDTO t = tableTypes.getSelectionModel().getSelectedItem();
-        if (t == null) {
+        if (t == null) { 
             showError("Select a type first.");
             return;
         }
         openForm(t);
     }
 
-    @FXML
-    public void onDelete() {
-        TypeDTO t = tableTypes.getSelectionModel().getSelectedItem();
-        if (t == null) {
-            showError("Select a type first.");
-            return;
-        }
-
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION,
-                "Delete type " + t.getType() + "?", ButtonType.YES, ButtonType.NO);
-        confirm.showAndWait();
-        if (confirm.getResult() != ButtonType.YES) return;
-
-        String result = api.delete("/types/" + t.getId());
-        new Alert(Alert.AlertType.INFORMATION, result).showAndWait();
-        loadTypes();
-    }
-
     private void openForm(TypeDTO type) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/type-form.fxml"));
-            Parent root = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/type-form.fxml")); //carrega o ficheiro do FXML do formulário
+            Parent root = loader.load(); //classe base do javaFX, nó da raiz, lê o arquivo e cria as comp gráficas 
 
-            TypeFormController controller = loader.getController();
-            if (type != null) controller.loadType(type);
+            TypeFormController controller = loader.getController(); //obtenho o controller do form (buscar métodos)
+            if (type != null)  //se o parceiro não estiver vazio, 
+            	controller.loadType(type);  //guarda os dados inseridos
 
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(new Scene(root));
-            stage.setTitle(type == null ? "Add Type" : "Edit Type");
-            stage.showAndWait();
+            Stage stage = new Stage(); //cria uma nova janela
+            stage.initModality(Modality.APPLICATION_MODAL); //define a janela como Modal (nao se pode interagir)
+            stage.setScene(new Scene(root)); //associa a interface carregada à nova janela
+            stage.setTitle(type == null ? "Add Type" : "Edit Type"); //se type=nul, adiciona, se não edita
+            stage.showAndWait(); //nao bloqueia e espera até a janela fechar
 
-            loadTypes();
+            loadTypes(); //atualiza os dados
+            
         } catch (Exception e) {
             showError("Cannot open form: " + e.getMessage());
         }
